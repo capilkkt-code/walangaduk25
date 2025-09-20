@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Walangaduk - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Existing styles... */
+        
+        /* New login-specific styles */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #31326F 0%, #4A4B8C 100%);
+            padding: 20px;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #31326F 0%, #4A4B8C 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            display: block;
+        }
+        
+        .login-form {
+            padding: 30px 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            border-color: #31326F;
+            box-shadow: 0 0 0 3px rgba(49, 50, 111, 0.1);
+            outline: none;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #31326F 0%, #4A4B8C 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(49, 50, 111, 0.2);
+        }
+        
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .login-footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="https://iili.io/KoUNepV.png" alt="Logo Walangaduk" class="login-logo">
+                <h2>Aplikasi Walangaduk</h2>
+                <p>Login untuk mengakses sistem</p>
+            </div>
+            
+            <div class="login-form">
+                <div id="loginMessage" class="hidden mb-4 p-3 rounded-lg text-white text-center"></div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username" class="block mb-2 font-medium">Username</label>
+                        <input type="text" id="username" name="username" class="form-input" placeholder="Masukkan username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="block mb-2 font-medium">Password</label>
+                        <input type="password" id="password" name="password" class="form-input" placeholder="Masukkan password" required>
+                    </div>
+                    
+                    <button type="submit" id="loginButton" class="login-btn pulse">
+                        <span id="loginText">🔑 Masuk ke Sistem</span>
+                        <span id="loginSpinner" class="hidden">
+                            <svg class="animate-spin h-5 w-5 text-white mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </span>
+                    </button>
+                </form>
+            </div>
+            
+            <div class="login-footer">
+                <p class="text-sm text-gray-600">
+                    Dinas Kependudukan dan Pencatatan Sipil<br>
+                    Kabupaten Kepulauan Tanimbar
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let loginCredentials = [];
+        
+        // DOM elements
+        const loginForm = document.getElementById('loginForm');
+        const loginButton = document.getElementById('loginButton');
+        const loginText = document.getElementById('loginText');
+        const loginSpinner = document.getElementById('loginSpinner');
+        const loginMessage = document.getElementById('loginMessage');
+        
+        // Show message function
+        function showMessage(message, type = 'error') {
+            loginMessage.textContent = message;
+            loginMessage.className = `mb-4 p-3 rounded-lg text-center ${type === 'error' ? 'bg-red-500 text-white' : 'bg-green-500 text-white'}`;
+            loginMessage.classList.remove('hidden');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                loginMessage.classList.add('hidden');
+            }, 5000);
+        }
+        
+        // Load login credentials from Google Sheets
+        async function loadLoginCredentials() {
+            try {
+                console.log('🔐 Memuat kredensial login dari Google Sheets...');
+                
+                // Show loading state
+                loginText.classList.add('hidden');
+                loginSpinner.classList.remove('hidden');
+                loginButton.disabled = true;
+                
+                // Google Sheets CSV URL for login credentials
+                const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQe1VRxHbaCptL3iB_UUitoRw_BF6DRWSuUw3-w5evnSe-nxUPGLKo7TNSjy8rwL8r0nL5RHmK2ALiy/pub?gid=0&single=true&output=csv';
+                
+                // Multiple CORS proxy options
+                const proxyUrls = [
+                    'https://api.allorigins.win/get?url=' + encodeURIComponent(csvUrl),
+                    'https://corsproxy.io/?' + encodeURIComponent(csvUrl),
+                    'https://cors-anywhere.herokuapp.com/' + csvUrl
+                ];
+                
+                let csvText = null;
+                let loadSuccess = false;
+                
+                // Try each proxy until one works
+                for (const proxyUrl of proxyUrls) {
+                    try {
+                        console.log('🔄 Mencoba proxy untuk kredensial:', proxyUrl);
+                        const response = await fetch(proxyUrl, {
+                            method: 'GET',
+                            headers: {
+                                'Accept': 'application/json, text/plain, */*',
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        }
+                        
+                        const data = await response.json();
+                        csvText = data.contents || data.data || data;
+                        
+                        if (typeof csvText === 'string' && csvText.length > 0) {
+                            console.log('✅ Berhasil mengakses kredensial via proxy');
+                            loadSuccess = true;
+                            break;
+                        }
+                    } catch (error) {
+                        console.warn('⚠️ Proxy gagal untuk kredensial:', error.message);
+                        continue;
+                    }
+                }
+                
+                // If all proxies failed, try direct access
+                if (!loadSuccess) {
+                    try {
+                        console.log('🔄 Mencoba akses langsung ke Google Sheets untuk kredensial...');
+                        const directResponse = await fetch(csvUrl, {
+                            method: 'GET',
+                            mode: 'cors',
+                            headers: {
+                                'Accept': 'text/csv, text/plain, */*'
+                            }
+                        });
+                        
+                        if (directResponse.ok) {
+                            csvText = await directResponse.text();
+                            console.log('✅ Berhasil akses langsung kredensial');
+                            loadSuccess = true;
+                        }
+                    } catch (directError) {
+                        console.warn('⚠️ Akses langsung gagal untuk kredensial:', directError.message);
+                    }
+                }
+                
+                if (!loadSuccess || !csvText || csvText.length === 0) {
+                    throw new Error('Gagal memuat data kredensial dari Google Sheets. Pastikan link Google Sheets dapat diakses dan berisi data yang valid.');
+                }
+                
+                // Parse CSV data
+                console.log('📊 Memproses data kredensial CSV...');
+                const lines = csvText.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim().split('\n');
+                
+                if (lines.length < 2) {
+                    throw new Error('Data kredensial tidak memiliki cukup baris. Pastikan Google Sheets memiliki header dan minimal 1 baris data.');
+                }
+                
+                // Enhanced CSV parser
+                function parseCSVLine(line) {
+                    const result = [];
+                    let current = '';
+                    let inQuotes = false;
+                    
+                    for (let i = 0; i < line.length; i++) {
+                        const char = line[i];
+                        
+                        if (char === '"') {
+                            inQuotes = !inQuotes;
+                        } else if (char === ',' && !inQuotes) {
+                            result.push(current.trim().replace(/^"|"$/g, ''));
+                            current = '';
+                        } else {
+                            current += char;
+                        }
+                    }
+                    result.push(current.trim().replace(/^"|"$/g, ''));
+                    return result;
+                }
+                
+                const headers = parseCSVLine(lines[0]).map(h => h.toLowerCase().trim());
+                console.log('📋 Headers kredensial CSV:', headers);
+                
+                // Validate required headers
+                const requiredHeaders = ['username', 'password'];
+                const missingHeaders = requiredHeaders.filter(header => 
+                    !headers.some(h => h.includes(header))
+                );
+                
+                if (missingHeaders.length > 0) {
+                    throw new Error(`Header yang diperlukan tidak ditemukan: ${missingHeaders.join(', ')}. Pastikan Google Sheets memiliki kolom 'username' dan 'password'.`);
+                }
+                
+                // Process credentials data
+                loginCredentials = [];
+                
+                for (let i = 1; i < lines.length; i++) {
+                    try {
+                        const row = parseCSVLine(lines[i]);
+                        
+                        if (row.length < 2 || !row.some(cell => cell.trim())) {
+                            continue; // Skip empty rows
+                        }
+                        
+                        const rowData = {};
+                        headers.forEach((header, index) => {
+                            rowData[header] = (row[index] || '').trim();
+                        });
+                        
+                        // Get username, password, and name with flexible header matching
+                        const username = rowData['username'] || rowData['user'] || rowData['login'] || '';
+                        const password = rowData['password'] || rowData['pass'] || rowData['pwd'] || '';
+                        const nama = rowData['nama'] || rowData['name'] || rowData['fullname'] || rowData['full_name'] || username;
+                        
+                        if (username && password) {
+                            loginCredentials.push({
+                                username: username,
+                                password: password,
+                                nama: nama
+                            });
+                            console.log(`✅ Kredensial dimuat: ${username} -> ${nama}`);
+                        }
+                        
+                    } catch (rowError) {
+                        console.warn(`⚠️ Error memproses baris kredensial ${i}:`, rowError);
+                        continue;
+                    }
+                }
+                
+                if (loginCredentials.length === 0) {
+                    throw new Error('Tidak ada kredensial valid yang ditemukan di Google Sheets. Pastikan data username dan password terisi dengan benar.');
+                }
+                
+                console.log(`✅ Berhasil memuat ${loginCredentials.length} kredensial login dari Google Sheets`);
+                showMessage(`✅ Berhasil memuat ${loginCredentials.length} akun login`, 'success');
+                
+            } catch (error) {
+                console.error('❌ Error loading login credentials:', error);
+                showMessage(`❌ Gagal memuat data: ${error.message}`);
+                
+                // Initialize empty credentials array
+                loginCredentials = [];
+                throw error;
+            } finally {
+                // Reset button state
+                loginText.classList.remove('hidden');
+                loginSpinner.classList.add('hidden');
+                loginButton.disabled = false;
+            }
+        }
+        
+        // Perform login function
+        async function performLogin(username, password) {
+            console.log('🔐 Mencoba login dengan username:', username);
+            
+            // Check if credentials are loaded
+            if (!loginCredentials || loginCredentials.length === 0) {
+                console.log('⚠️ Kredensial belum dimuat, mencoba memuat ulang...');
+                try {
+                    await loadLoginCredentials();
+                } catch (error) {
+                    console.error('❌ Gagal memuat kredensial:', error);
+                    throw new Error('Tidak dapat memuat data login dari Google Sheets. Periksa koneksi internet dan coba lagi.');
+                }
+            }
+            
+            // Check credentials
+            const user = loginCredentials.find(cred => 
+                cred.username === username && cred.password === password
+            );
+            
+            if (user) {
+                // Store login state in localStorage
+                localStorage.setItem('walangaduk_login', JSON.stringify({
+                    isLoggedIn: true,
+                    user: user,
+                    timestamp: Date.now()
+                }));
+                
+                console.log('✅ Login berhasil untuk:', user.nama);
+                return true;
+            } else {
+                console.log('❌ Login gagal - kredensial tidak valid');
+                return false;
+            }
+        }
+        
+        // Initialize login form
+        function initializeLoginForm() {
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const submitBtn = loginButton;
+                const originalText = loginText.textContent;
+                
+                try {
+                    const formData = new FormData(this);
+                    const username = formData.get('username').trim();
+                    const password = formData.get('password').trim();
+                    
+                    if (!username || !password) {
+                        showMessage('❌ Username dan password harus diisi!');
+                        return;
+                    }
+                    
+                    // Show loading
+                    loginText.textContent = 'Memverifikasi...';
+                    loginText.classList.add('hidden');
+                    loginSpinner.classList.remove('hidden');
+                    submitBtn.disabled = true;
+                    
+                    // Perform login
+                    const loginSuccess = await performLogin(username, password);
+                    
+                    if (loginSuccess) {
+                        showMessage('✅ Login berhasil! Mengalihkan...', 'success');
+                        
+                        // Redirect to registrasi page after successful login
+                        setTimeout(() => {
+                            window.location.href = 'walngaduk_script.html#registrasi';
+                        }, 2000);
+                        
+                    } else {
+                        showMessage('❌ Username atau password salah. Silakan coba lagi.');
+                    }
+                    
+                } catch (error) {
+                    console.error('❌ Error in login:', error);
+                    showMessage(`❌ Error login: ${error.message}`);
+                } finally {
+                    setTimeout(() => {
+                        loginText.textContent = originalText;
+                        loginText.classList.remove('hidden');
+                        loginSpinner.classList.add('hidden');
+                        submitBtn.disabled = false;
+                    }, 2000);
+                }
+            });
+        }
+        
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 Memulai aplikasi Walangaduk...');
+            
+            // Check if already logged in
+            try {
+                const stored = localStorage.getItem('walangaduk_login');
+                if (stored) {
+                    const loginData = JSON.parse(stored);
+                    
+                    // Check if login is still valid (24 hours)
+                    const now = Date.now();
+                    const loginTime = loginData.timestamp || 0;
+                    const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+                    
+                    if (hoursDiff < 24 && loginData.isLoggedIn && loginData.user) {
+                        // Redirect to registrasi page
+                        window.location.href = 'walngaduk_script.html#registrasi';
+                        return;
+                    } else {
+                        // Clear expired login
+                        localStorage.removeItem('walangaduk_login');
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking stored login:', error);
+                localStorage.removeItem('walangaduk_login');
+            }
+            
+            // Load login credentials and initialize form
+            try {
+                await loadLoginCredentials();
+                initializeLoginForm();
+            } catch (error) {
+                console.error('Failed to initialize login:', error);
+            }
+        });
+    </script>
+</body>
+</html>
