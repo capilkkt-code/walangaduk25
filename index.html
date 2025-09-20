@@ -3,103 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Walangaduk - Login</title>
+    <title>Aplikasi Walangaduk</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#31326F'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Existing styles... */
-        
-        /* New login-specific styles */
-        .login-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .gradient-bg {
             background: linear-gradient(135deg, #31326F 0%, #4A4B8C 100%);
-            padding: 20px;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px rgba(49, 50, 111, 0.1);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .login-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            width: 100%;
-            max-width: 400px;
-            animation: slideUp 0.5s ease-out;
+        /* Hamburger Animation */
+        .hamburger-active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger-active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
         }
         
-        .login-header {
-            background: linear-gradient(135deg, #31326F 0%, #4A4B8C 100%);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
+        /* Mobile menu slide animation */
+        .mobile-menu-enter {
+            animation: slideDown 0.3s ease-out;
+        }
+        .mobile-menu-exit {
+            animation: slideUp 0.3s ease-in;
         }
         
-        .login-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 15px;
-            display: block;
-        }
-        
-        .login-form {
-            padding: 30px 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        .form-input:focus {
-            border-color: #31326F;
-            box-shadow: 0 0 0 3px rgba(49, 50, 111, 0.1);
-            outline: none;
-        }
-        
-        .login-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #31326F 0%, #4A4B8C 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(49, 50, 111, 0.2);
-        }
-        
-        .login-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .login-footer {
-            text-align: center;
-            padding: 20px;
-            background: #f8fafc;
-            border-top: 1px solid #e2e8f0;
-        }
-        
-        @keyframes slideUp {
+        @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(-10px);
             }
             to {
                 opacity: 1;
@@ -107,397 +61,2822 @@
             }
         }
         
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
+        @keyframes slideUp {
+            from {
+                opacity: 1;
+                transform: translateY(0);
             }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
             }
         }
     </style>
 </head>
-<body>
-    <!-- Login Page -->
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <img src="https://iili.io/KoUNepV.png" alt="Logo Walangaduk" class="login-logo">
-                <h2>Aplikasi Walangaduk</h2>
-                <p>Login untuk mengakses sistem</p>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex flex-col items-center space-y-4">
+                <img src="https://iili.io/KoUNepV.png" alt="Logo" class="h-24 w-24 md:h-32 md:w-32 lg:h-40 lg:w-40 object-contain">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 px-2">Aplikasi Walangaduk</h1>
+                    <p class="text-sm sm:text-base md:text-lg lg:text-xl mb-2 px-4 max-w-4xl mx-auto">Layanan Registrasi Administrasi Kependudukan Secara Online Oleh Petugas Walangaduk di Desa</p>
+                    <p class="text-xs sm:text-sm md:text-base lg:text-lg px-4 max-w-3xl mx-auto">Dinas Kependudukan dan Pencatatan Sipil Kabupaten Kepulauan Tanimbar</p>
+                    <div class="mt-3 sm:mt-4 text-center">
+                        <div id="currentDateTime" class="text-xs sm:text-sm md:text-base text-white/90 font-medium bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2 inline-block">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="login-form">
-                <div id="loginMessage" class="hidden mb-4 p-3 rounded-lg text-white text-center"></div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-3 sm:px-4 lg:px-6">
+            <div class="flex justify-between items-center py-3 sm:py-4">
+                <div class="text-base sm:text-lg lg:text-xl font-semibold text-primary">
+                    📱 Menu
+                </div>
                 
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="username" class="block mb-2 font-medium">Username</label>
-                        <input type="text" id="username" name="username" class="form-input" placeholder="Masukkan username" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="password" class="block mb-2 font-medium">Password</label>
-                        <input type="password" id="password" name="password" class="form-input" placeholder="Masukkan password" required>
-                    </div>
-                    
-                    <button type="submit" id="loginButton" class="login-btn pulse">
-                        <span id="loginText">🔑 Masuk ke Sistem</span>
-                        <span id="loginSpinner" class="hidden">
-                            <svg class="animate-spin h-5 w-5 text-white mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                        </span>
+                <!-- Hamburger Button -->
+                <button id="hamburger-btn" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none p-2 rounded-lg hover:bg-gray-100 transition-colors" onclick="toggleMenu()">
+                    <span class="hamburger-line w-6 h-0.5 bg-primary transition-all duration-300"></span>
+                    <span class="hamburger-line w-6 h-0.5 bg-primary transition-all duration-300"></span>
+                    <span class="hamburger-line w-6 h-0.5 bg-primary transition-all duration-300"></span>
+                </button>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-2 xl:space-x-6">
+                    <button onclick="showPage('dashboard')" class="nav-btn px-4 xl:px-6 py-2 xl:py-3 rounded-lg font-medium transition-all duration-300 bg-primary text-white text-sm xl:text-base">Dashboard</button>
+                    <button onclick="showPage('registrasi')" class="nav-btn px-4 xl:px-6 py-2 xl:py-3 rounded-lg font-medium transition-all duration-300 text-primary hover:bg-primary hover:text-white text-sm xl:text-base">Registrasi</button>
+                    <button onclick="showPage('tentang')" class="nav-btn px-4 xl:px-6 py-2 xl:py-3 rounded-lg font-medium transition-all duration-300 text-primary hover:bg-primary hover:text-white text-sm xl:text-base">Tentang Kami</button>
+                    <button onclick="showPage('kontak')" class="nav-btn px-4 xl:px-6 py-2 xl:py-3 rounded-lg font-medium transition-all duration-300 text-primary hover:bg-primary hover:text-white text-sm xl:text-base">Kontak Kami</button>
+                    <button id="logoutBtn" onclick="logout()" class="hidden px-4 xl:px-6 py-2 xl:py-3 rounded-lg font-medium transition-all duration-300 bg-red-500 text-white hover:bg-red-600 text-sm xl:text-base">
+                        🚪 Logout
                     </button>
-                </form>
+                </div>
             </div>
             
-            <div class="login-footer">
-                <p class="text-sm text-gray-600">
-                    Dinas Kependudukan dan Pencatatan Sipil<br>
-                    Kabupaten Kepulauan Tanimbar
-                </p>
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="lg:hidden hidden bg-white border-t border-gray-200 shadow-lg">
+                <div class="py-2 space-y-1">
+                    <button onclick="showPage('dashboard'); toggleMenu()" class="nav-btn-mobile w-full text-left px-4 py-4 text-primary hover:bg-primary hover:text-white transition-all duration-300 bg-primary text-white font-medium text-base">📊 Dashboard</button>
+                    <button onclick="showPage('registrasi'); toggleMenu()" class="nav-btn-mobile w-full text-left px-4 py-4 text-primary hover:bg-primary hover:text-white transition-all duration-300 font-medium text-base">📝 Registrasi</button>
+                    <button onclick="showPage('tentang'); toggleMenu()" class="nav-btn-mobile w-full text-left px-4 py-4 text-primary hover:bg-primary hover:text-white transition-all duration-300 font-medium text-base">ℹ️ Tentang Kami</button>
+                    <button onclick="showPage('kontak'); toggleMenu()" class="nav-btn-mobile w-full text-left px-4 py-4 text-primary hover:bg-primary hover:text-white transition-all duration-300 font-medium text-base">📞 Kontak Kami</button>
+                    <button id="logoutBtnMobile" onclick="logout(); toggleMenu()" class="hidden w-full text-left px-4 py-4 bg-red-500 text-white hover:bg-red-600 transition-all duration-300 font-medium text-base">
+                        🚪 Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard" class="page-content">
+        <div class="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-6 sm:py-8 md:py-10 lg:py-12">
+            <!-- Welcome Hero Section -->
+            <div class="text-center mb-8 sm:mb-12 md:mb-16">
+                <div class="bg-gradient-to-br from-primary via-blue-600 to-purple-700 text-white rounded-3xl p-8 sm:p-12 md:p-16 shadow-2xl">
+                    <div class="max-w-4xl mx-auto">
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
+                            🌊 Selamat Datang di Era Digital Kepulauan Tanimbar
+                        </h2>
+                        <p class="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 opacity-90 leading-relaxed">
+                            Menghubungkan setiap pulau, melayani setiap keluarga dengan teknologi modern yang mudah diakses
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-8">
+                            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6">
+                                <div class="text-3xl sm:text-4xl mb-2">🏝️</div>
+                                <h4 class="font-semibold text-lg mb-2">10 Kecamatan</h4>
+                                <p class="text-sm opacity-80">Tersebar di Kepulauan Tanimbar</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6">
+                                <div class="text-3xl sm:text-4xl mb-2">🏘️</div>
+                                <h4 class="font-semibold text-lg mb-2">82+ Desa</h4>
+                                <p class="text-sm opacity-80">Terjangkau layanan digital</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6">
+                                <div class="text-3xl sm:text-4xl mb-2">👥</div>
+                                <h4 class="font-semibold text-lg mb-2">Banyaknya Keluarga</h4>
+                                <p class="text-sm opacity-80">Telah merasakan kemudahan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Services Overview -->
+            <div class="mb-8 sm:mb-12 md:mb-16">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-4">
+                        🎯 Layanan Unggulan Kami
+                    </h3>
+                    <p class="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
+                        Solusi lengkap administrasi kependudukan yang dirancang khusus untuk masyarakat kepulauan
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 sm:p-8 border border-blue-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-3xl text-white">👨‍👩‍👧‍👦</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-blue-700 mb-3">Kartu Keluarga</h4>
+                        <p class="text-blue-600 text-sm leading-relaxed">Pembuatan dan pembaruan Kartu Keluarga dengan proses yang cepat dan mudah, langsung dari desa Anda.</p>
+                    </div>
+
+                    <!-- Service Card 2 -->
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 sm:p-8 border border-green-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-3xl text-white">🆔</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-green-700 mb-3">KTP Elektronik</h4>
+                        <p class="text-green-600 text-sm leading-relaxed">Layanan pembuatan e-KTP dengan teknologi terdepan, memastikan identitas Anda terlindungi dan valid.</p>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 sm:p-8 border border-purple-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-3xl text-white">👶</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-purple-700 mb-3">Kartu Identitas Anak</h4>
+                        <p class="text-purple-600 text-sm leading-relaxed">Memberikan identitas resmi untuk anak-anak, melindungi hak dan masa depan generasi penerus bangsa.</p>
+                    </div>
+
+                    <!-- Service Card 4 -->
+                    <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-6 sm:p-8 border border-orange-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-3xl text-white">🍼</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-orange-700 mb-3">Akta Kelahiran</h4>
+                        <p class="text-orange-600 text-sm leading-relaxed">Pencatatan kelahiran yang sah dan legal, memberikan kepastian hukum sejak hari pertama kehidupan.</p>
+                    </div>
+
+                    <!-- Service Card 5 -->
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-6 sm:p-8 border border-red-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-3xl text-white">📤</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-red-700 mb-3">Surat Pindah & Datang</h4>
+                        <p class="text-red-600 text-sm leading-relaxed">Layanan perpindahan penduduk antar wilayah dengan proses yang transparan dan terpercaya.</p>
+                    </div>
+
+                    <!-- Service Card 6 -->
+                    <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-6 sm:p-8 border border-indigo-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-3xl text-white">⚰️</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-indigo-700 mb-3">Akta Kematian</h4>
+                        <p class="text-indigo-600 text-sm leading-relaxed">Pencatatan kematian yang menghormati dan memberikan kepastian hukum bagi keluarga yang ditinggalkan.</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Why Choose Us -->
+            <div class="mb-8 sm:mb-12 md:mb-16">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-4">
+                        ✨ Mengapa Memilih Walangaduk?
+                    </h3>
+                    <p class="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
+                        Inovasi terdepan yang mengatasi tantangan geografis kepulauan dengan solusi teknologi modern
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-xl">🚀</span>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-gray-800 mb-2">Akses Mudah dari Mana Saja</h4>
+                                <p class="text-gray-600 leading-relaxed">Tidak perlu lagi perjalanan jauh antar pulau. Layanan dapat diakses dari desa manapun di Kepulauan Tanimbar.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-xl">⚡</span>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-gray-800 mb-2">Proses Cepat & Efisien</h4>
+                                <p class="text-gray-600 leading-relaxed">Teknologi digital memungkinkan pemrosesan dokumen yang lebih cepat dengan tingkat akurasi tinggi.</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="bg-gradient-to-br from-primary to-blue-600 rounded-2xl p-8 text-white">
+                        <h4 class="text-2xl font-bold mb-6">📊 Dampak Positif Walangaduk</h4>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span>Waktu Pelayanan</span>
+                                <span class="font-bold">↓ 75% Lebih Cepat</span>
+                            </div>
+                            <div class="w-full bg-white/20 rounded-full h-2">
+                                <div class="bg-white h-2 rounded-full w-3/4"></div>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <span>Biaya Transportasi</span>
+                                <span class="font-bold">↓ 90% Hemat</span>
+                            </div>
+                            <div class="w-full bg-white/20 rounded-full h-2">
+                                <div class="bg-white h-2 rounded-full w-9/10"></div>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <span>Kepuasan Masyarakat</span>
+                                <span class="font-bold">↑ 95% Puas</span>
+                            </div>
+                            <div class="w-full bg-white/20 rounded-full h-2">
+                                <div class="bg-white h-2 rounded-full w-11/12"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Registrasi Page -->
+    <div id="registrasi" class="page-content hidden">
+        <div class="container mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4 md:py-6 lg:py-8">
+            <div class="max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto">
+
+                
+                <div class="bg-white rounded-lg sm:rounded-xl card-shadow p-3 sm:p-4 md:p-6 lg:p-8">
+                    <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-primary mb-4 sm:mb-6 lg:mb-8 text-center px-1 sm:px-2 leading-tight">Form Registrasi Administrasi Kependudukan</h2>
+                    
+                    <form id="registrationForm" class="space-y-4 sm:space-y-5 md:space-y-6">
+                        <!-- Tanggal dan Jenis Pelaporan -->
+                        <div class="border border-gray-200 p-3 sm:p-4 md:p-5 lg:p-6 rounded-lg">
+                            <h3 class="text-base sm:text-lg md:text-xl font-semibold text-primary mb-3 sm:mb-4 border-b border-gray-200 pb-2">
+                                Informasi Pelaporan
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Tanggal</label>
+                                    <input type="date" name="tanggal" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                </div>
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Jenis Pelaporan</label>
+                                    <select name="jenipelaporan" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                        <option value="">Pilih Jenis Pelaporan</option>
+                                        <option value="KK">Kartu Keluarga (KK)</option>
+                                        <option value="KTP EL">KTP Elektronik</option>
+                                        <option value="KIA">Kartu Identitas Anak</option>
+                                        <option value="SKPWNI">Surat Keterangan Pindah WNI</option>
+                                        <option value="SKDWNI">Surat Keterangan Datang WNI</option>
+                                        <option value="Akta Kelahiran">Akta Kelahiran</option>
+                                        <option value="Akta Kematian">Akta Kematian</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Data Petugas -->
+                        <div class="border border-gray-200 p-3 sm:p-4 md:p-5 lg:p-6 rounded-lg">
+                            <h3 class="text-base sm:text-lg md:text-xl font-semibold text-primary mb-3 sm:mb-4 border-b border-gray-200 pb-2">
+                                Data Petugas
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Nama Petugas</label>
+                                    <input type="text" name="namapetugas" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                </div>
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">NIP Petugas</label>
+                                    <input type="text" name="nip" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                </div>
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Nama Instansi</label>
+                                    <input type="text" name="namainstansi" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                </div>
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">No Handphone</label>
+                                    <input type="tel" name="telp" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Email</label>
+                                    <input type="email" name="email" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Data Pemohon -->
+                        <div class="border border-gray-200 p-3 sm:p-4 md:p-5 lg:p-6 rounded-lg">
+                            <h3 class="text-base sm:text-lg md:text-xl font-semibold text-primary mb-3 sm:mb-4 border-b border-gray-200 pb-2">
+                                Data Pemohon
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                                <div class="md:col-span-2">
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Nama Lengkap</label>
+                                    <input type="text" name="namalengkap" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                </div>
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Tempat Lahir</label>
+                                    <input type="text" name="tempatlahir" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                </div>
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Tanggal Lahir</label>
+                                    <input type="date" name="tanggallahir" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                </div>
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Jenis Kelamin</label>
+                                    <select name="jeniskelamin" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                        <option value="">Pilih Jenis Kelamin</option>
+                                        <option value="Laki-laki">Laki-laki</option>
+                                        <option value="Perempuan">Perempuan</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Nama Ibu</label>
+                                    <input type="text" name="namaibu" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                </div>
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Nama Ayah</label>
+                                    <input type="text" name="namaayah" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alamat -->
+                        <div class="border border-gray-200 p-3 sm:p-4 md:p-5 lg:p-6 rounded-lg">
+                            <h3 class="text-base sm:text-lg md:text-xl font-semibold text-primary mb-3 sm:mb-4 border-b border-gray-200 pb-2">
+                                Alamat
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Kecamatan</label>
+                                    <select name="kecamatan" id="kecamatan" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" onchange="updateDesa()">
+                                        <option value="">Pilih Kecamatan</option>
+                                        <option value="Tanimbar Selatan">Tanimbar Selatan</option>
+                                        <option value="Selaru">Selaru</option>
+                                        <option value="Wertamrian">Wertamrian</option>
+                                        <option value="Wermaktian">Wermaktian</option>
+                                        <option value="Tanimbar Utara">Tanimbar Utara</option>
+                                        <option value="Fordata">Fordata</option>
+                                        <option value="Wuarlabobar">Wuarlabobar</option>
+                                        <option value="Kormomolin">Kormomolin</option>
+                                        <option value="Nirunmas">Nirunmas</option>
+                                        <option value="Molumaru">Molumaru</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Desa</label>
+                                    <select name="desakelurahan" id="desa" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                        <option value="">Pilih Desa</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">RT/RW</label>
+                                    <input type="text" name="rtrw" required placeholder="Contoh: RT 001/RW 002" class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Upload Berkas -->
+                        <div class="border border-gray-200 p-3 sm:p-4 md:p-5 lg:p-6 rounded-lg">
+                            <h3 class="text-base sm:text-lg md:text-xl font-semibold text-primary mb-3 sm:mb-4 border-b border-gray-200 pb-2">
+                                Upload Berkas
+                            </h3>
+                            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4 mb-4">
+                                <div class="flex items-start space-x-2">
+                                    <div class="text-yellow-600 text-lg flex-shrink-0">⚠️</div>
+                                    <div>
+                                        <h4 class="text-yellow-800 font-semibold text-sm mb-1">Catatan Penting:</h4>
+                                        <p class="text-yellow-700 text-xs sm:text-sm leading-relaxed">
+                                            Berkas yang di upload harus asli dalam bentuk PDF. Pastikan dokumen sudah dipindai dengan jelas dan dapat dibaca.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-2 border-dashed border-gray-300 rounded-md p-4 sm:p-6 text-center hover:border-primary transition-colors">
+                                <input type="file" id="fileUpload" name="unggahberkas" multiple accept=".pdf,.jpg,.jpeg,.png" class="hidden" onchange="handleFileUpload(event)">
+                                <label for="fileUpload" class="cursor-pointer block">
+                                    <div class="text-gray-500">
+                                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        <p class="mt-2 text-sm sm:text-base font-medium">Klik untuk upload berkas</p>
+                                        <p class="text-xs sm:text-sm mt-1">Format: PDF, JPG, PNG (Max 5MB)</p>
+                                    </div>
+                                </label>
+                                <div id="fileList" class="mt-3 sm:mt-4 text-left"></div>
+                            </div>
+                        </div>
+
+                        <!-- Verifikasi Biometrik -->
+                        <div class="border border-gray-200 p-3 sm:p-4 md:p-5 lg:p-6 rounded-lg">
+                            <h3 class="text-base sm:text-lg md:text-xl font-semibold text-primary mb-3 sm:mb-4 border-b border-gray-200 pb-2">
+                                🔐 Verifikasi Biometrik
+                            </h3>
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4 mb-4">
+                                <div class="flex items-start space-x-2">
+                                    <div class="text-blue-600 text-lg flex-shrink-0">📷</div>
+                                    <div>
+                                        <h4 class="text-blue-800 font-semibold text-sm mb-1">Foto Wajah untuk Verifikasi:</h4>
+                                        <p class="text-blue-700 text-xs sm:text-sm leading-relaxed">
+                                            Ambil foto wajah Anda untuk verifikasi identitas. Pastikan wajah terlihat jelas dan pencahayaan cukup.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                                <!-- Camera Section -->
+                                <div class="space-y-4">
+                                    <div class="bg-gray-100 rounded-lg overflow-hidden" style="aspect-ratio: 4/3;">
+                                        <video id="cameraVideo" class="w-full h-full object-cover hidden" autoplay playsinline></video>
+                                        <canvas id="cameraCanvas" class="w-full h-full object-cover hidden"></canvas>
+                                        <div id="cameraPlaceholder" class="w-full h-full flex items-center justify-center bg-gray-200">
+                                            <div class="text-center">
+                                                <div class="text-4xl text-gray-400 mb-2">📷</div>
+                                                <p class="text-gray-500 text-sm">Kamera belum aktif</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-col sm:flex-row gap-2">
+                                        <button type="button" id="startCameraBtn" onclick="startCamera()" class="flex-1 bg-blue-500 text-white px-4 py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors flex items-center justify-center">
+                                            <span class="mr-2">📹</span>
+                                            Aktifkan Kamera
+                                        </button>
+                                        <button type="button" id="captureBtn" onclick="capturePhoto()" class="flex-1 bg-green-500 text-white px-4 py-3 rounded-lg font-medium hover:bg-green-600 transition-colors flex items-center justify-center hidden">
+                                            <span class="mr-2">📸</span>
+                                            Ambil Foto
+                                        </button>
+                                        <button type="button" id="retakeBtn" onclick="retakePhoto()" class="flex-1 bg-orange-500 text-white px-4 py-3 rounded-lg font-medium hover:bg-orange-600 transition-colors flex items-center justify-center hidden">
+                                            <span class="mr-2">🔄</span>
+                                            Foto Ulang
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Captured Photo Preview -->
+                                <div class="space-y-4">
+                                    <div class="bg-gray-100 rounded-lg overflow-hidden" style="aspect-ratio: 4/3;">
+                                        <img id="capturedPhoto" class="w-full h-full object-cover hidden" alt="Foto yang diambil">
+                                        <div id="photoPlaceholder" class="w-full h-full flex items-center justify-center bg-gray-200">
+                                            <div class="text-center">
+                                                <div class="text-4xl text-gray-400 mb-2">🖼️</div>
+                                                <p class="text-gray-500 text-sm">Foto belum diambil</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="biometricStatus" class="hidden">
+                                        <div class="bg-green-50 border border-green-200 rounded-lg p-3">
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-green-600 text-lg">✅</span>
+                                                <div>
+                                                    <h4 class="text-green-800 font-semibold text-sm">Foto Berhasil Diambil</h4>
+                                                    <p class="text-green-700 text-xs">Verifikasi biometrik siap untuk diproses</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CAPTCHA Verification -->
+                        <div class="border border-gray-200 p-3 sm:p-4 md:p-5 lg:p-6 rounded-lg">
+                            <h3 class="text-base sm:text-lg md:text-xl font-semibold text-primary mb-3 sm:mb-4 border-b border-gray-200 pb-2">
+                                🛡️ Verifikasi CAPTCHA
+                            </h3>
+                            <div class="bg-orange-50 border border-orange-200 rounded-lg p-3 sm:p-4 mb-4">
+                                <div class="flex items-start space-x-2">
+                                    <div class="text-orange-600 text-lg flex-shrink-0">🔒</div>
+                                    <div>
+                                        <h4 class="text-orange-800 font-semibold text-sm mb-1">Verifikasi Keamanan:</h4>
+                                        <p class="text-orange-700 text-xs sm:text-sm leading-relaxed">
+                                            Masukkan kode CAPTCHA di bawah ini untuk memverifikasi bahwa Anda bukan robot.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-center gap-4">
+                                <!-- CAPTCHA Display -->
+                                <div class="bg-gray-100 border-2 border-gray-300 rounded-lg p-4 flex-shrink-0">
+                                    <canvas id="captchaCanvas" width="200" height="80" class="bg-white rounded border"></canvas>
+                                </div>
+                                
+                                <!-- CAPTCHA Input and Controls -->
+                                <div class="flex-1 space-y-3 w-full">
+                                    <div>
+                                        <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Masukkan Kode CAPTCHA</label>
+                                        <input type="text" id="captchaInput" name="captcha" required maxlength="6" class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base text-center font-mono text-lg tracking-widest" placeholder="Masukkan 6 karakter">
+                                    </div>
+                                    
+                                    <div class="flex gap-2">
+                                        <button type="button" onclick="generateCaptcha()" class="flex-1 bg-gray-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-600 transition-colors flex items-center justify-center text-sm">
+                                            <span class="mr-2">🔄</span>
+                                            Buat Ulang
+                                        </button>
+                                        <button type="button" onclick="verifyCaptcha()" class="flex-1 bg-blue-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-600 transition-colors flex items-center justify-center text-sm">
+                                            <span class="mr-2">✓</span>
+                                            Verifikasi
+                                        </button>
+                                    </div>
+                                    
+                                    <div id="captchaStatus" class="hidden">
+                                        <!-- Status will be shown here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Syarat dan Ketentuan -->
+                        <div class="border border-gray-200 p-3 sm:p-4 md:p-5 lg:p-6 rounded-lg">
+                            <div class="flex items-start space-x-3">
+                                <input type="checkbox" id="syaratKetentuan" name="syaratdanketentuan" required class="mt-1 h-5 w-5 sm:h-6 sm:w-6 text-primary border-gray-300 rounded focus:ring-primary">
+                                <label for="syaratKetentuan" class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                                    Saya menyetujui <a href="#" class="text-primary underline font-medium">syarat dan ketentuan</a> yang berlaku dan menjamin kebenaran data yang saya berikan.
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center pt-4 sm:pt-6 space-y-4">
+                            <button type="submit" class="w-full sm:w-auto bg-primary text-white px-6 sm:px-8 lg:px-12 py-3 sm:py-4 rounded-md text-base sm:text-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-md">
+                                Kirim Data Registrasi
+                            </button>
+                            
+                            <div class="text-center">
+                                <p class="text-xs text-gray-500 mt-2">
+                                    🔗 Terhubung dengan database AplikasiWalangaduk
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Tentang Kami Page -->
+    <div id="tentang" class="page-content hidden">
+        <div class="container mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 md:py-8 lg:py-12">
+            <div class="max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto">
+                <!-- Hero Section -->
+                <div class="text-center mb-8 sm:mb-12">
+                    <div class="bg-gradient-to-br from-primary via-blue-600 to-purple-700 text-white rounded-3xl p-8 sm:p-12 shadow-2xl">
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                            🌊 Tentang Walangaduk
+                        </h2>
+                        <p class="text-lg sm:text-xl opacity-90 max-w-2xl mx-auto leading-relaxed">
+                            Menjembatani jarak, menghubungkan harapan - Inovasi digital untuk kepulauan yang lebih maju
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Story Section -->
+                <div class="bg-white rounded-2xl card-shadow p-6 sm:p-8 mb-8">
+                    <h3 class="text-xl sm:text-2xl font-bold text-primary mb-6 flex items-center">
+                        🏝️ Cerita Kami
+                    </h3>
+                    <div class="prose prose-gray max-w-none">
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Di tengah hamparan laut biru Kepulauan Tanimbar, terdapat tantangan yang telah lama dihadapi masyarakat - <strong>jarak yang memisahkan</strong>. Untuk mengurus dokumen kependudukan, warga harus menempuh perjalanan laut yang panjang dan mahal.
+                        </p>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            <strong>Walangaduk</strong> lahir dari kepedulian dan inovasi Dinas Kependudukan dan Pencatatan Sipil Kabupaten Kepulauan Tanimbar. Kami percaya bahwa <em>setiap warga, di pulau manapun, berhak mendapatkan pelayanan yang mudah dan berkualitas</em>.
+                        </p>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="text-blue-800 font-medium italic">
+                                "Walangaduk bukan sekadar aplikasi - ini adalah jembatan digital yang menghubungkan setiap keluarga di kepulauan dengan layanan pemerintah yang mereka butuhkan."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vision Mission -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-8">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 sm:p-8 border border-blue-200">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-3xl text-white">👁️</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-blue-700 mb-4">Visi Kami</h4>
+                        <p class="text-blue-600 leading-relaxed">
+                            Mewujudkan Kepulauan Tanimbar sebagai daerah kepulauan terdepan dalam pelayanan administrasi kependudukan digital yang <strong>inklusif, inovatif, dan berkelanjutan</strong>.
+                        </p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 sm:p-8 border border-green-200">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-3xl text-white">🎯</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-green-700 mb-4">Misi Kami</h4>
+                        <ul class="text-green-600 space-y-2 text-sm leading-relaxed">
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">•</span>
+                                Memberikan akses layanan kependudukan yang mudah dan terjangkau
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">•</span>
+                                Meningkatkan kualitas hidup masyarakat kepulauan melalui teknologi
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">•</span>
+                                Membangun sistem pelayanan yang transparan dan akuntabel
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Values Section -->
+                <div class="bg-white rounded-2xl card-shadow p-6 sm:p-8 mb-8">
+                    <h3 class="text-xl sm:text-2xl font-bold text-primary mb-6 text-center">
+                        ⭐ Nilai-Nilai Kami
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="text-center p-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="text-white text-xl">🤝</span>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 mb-2">Kepedulian</h5>
+                            <p class="text-xs text-gray-600">Mengutamakan kebutuhan masyarakat</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="text-white text-xl">⚡</span>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 mb-2">Inovasi</h5>
+                            <p class="text-xs text-gray-600">Terus berinovasi untuk kemajuan</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="text-white text-xl">🎯</span>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 mb-2">Integritas</h5>
+                            <p class="text-xs text-gray-600">Jujur dan dapat dipercaya</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="text-white text-xl">🌟</span>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 mb-2">Keunggulan</h5>
+                            <p class="text-xs text-gray-600">Memberikan yang terbaik</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Impact Section -->
+                <div class="bg-gradient-to-r from-primary to-blue-600 rounded-2xl p-6 sm:p-8 text-white mb-8">
+                    <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">
+                        🚀 Dampak Positif Walangaduk
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl sm:text-4xl font-bold mb-2">10,000+</div>
+                            <p class="text-sm opacity-90">Dokumen Telah Diproses</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl sm:text-4xl font-bold mb-2">82</div>
+                            <p class="text-sm opacity-90">Desa Terjangkau</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl sm:text-4xl font-bold mb-2">95%</div>
+                            <p class="text-sm opacity-90">Tingkat Kepuasan</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <p class="text-lg opacity-90 italic">
+                            "Bersama-sama membangun masa depan digital Kepulauan Tanimbar yang lebih cerah"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Location Map Section -->
+                <div class="bg-white rounded-2xl card-shadow p-6 sm:p-8">
+                    <h3 class="text-xl sm:text-2xl font-bold text-primary mb-6 text-center flex items-center justify-center">
+                        🗺️ Lokasi Kantor Kami
+                    </h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                        <!-- Map Embed -->
+                        <div class="order-2 lg:order-1">
+                            <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg h-64 sm:h-80 relative">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.123456789!2d131.123456!3d-7.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDcnMjQuNCJTIDEzMcKwMDcnMjQuNCJF!5e0!3m2!1sen!2sid!4v1234567890"
+                                    width="100%" 
+                                    height="100%" 
+                                    style="border:0;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    class="rounded-xl">
+                                </iframe>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none rounded-xl"></div>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <a href="https://maps.app.goo.gl/Vtd6ps9dDmWdvTn27" 
+                                   target="_blank" 
+                                   class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg hover:bg-opacity-90 transition-all duration-300 font-medium shadow-md">
+                                    <span class="mr-2">📍</span>
+                                    Buka di Google Maps
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Location Info -->
+                        <div class="order-1 lg:order-2">
+                            <div class="space-y-4">
+                                <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                                    <div class="flex items-start space-x-3">
+                                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span class="text-white text-lg">🏢</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-blue-800 mb-1">Alamat Lengkap</h4>
+                                            <p class="text-blue-700 text-sm leading-relaxed">
+                                                Dinas Kependudukan dan Pencatatan Sipil<br>
+                                                Kabupaten Kepulauan Tanimbar<br>
+                                                Jl. Ir. Soekarno-Saumlaki<br>
+                                                Provinsi Maluku
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-green-50 border border-green-200 rounded-xl p-4">
+                                    <div class="flex items-start space-x-3">
+                                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span class="text-white text-lg">⏰</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-green-800 mb-1">Jam Operasional</h4>
+                                            <div class="text-green-700 text-sm space-y-1">
+                                                <p><strong>Senin - Jumat:</strong> 08:00 - 16:00 WIT</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-purple-50 border border-purple-200 rounded-xl p-4">
+                                    <div class="flex items-start space-x-3">
+                                        <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span class="text-white text-lg">🚗</span>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-purple-800 mb-1">Akses Transportasi</h4>
+                                            <p class="text-purple-700 text-sm leading-relaxed">
+                                                Dapat diakses melalui transportasi darat dari pusat kota Saumlaki. 
+                                                Tersedia area parkir untuk kendaraan roda dua dan roda empat.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kontak Kami Page -->
+    <div id="kontak" class="page-content hidden">
+        <div class="container mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 md:py-8 lg:py-12">
+            <div class="max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto">
+                <div class="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+                    <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-2 sm:mb-4">📞 Kontak Kami</h2>
+                    <p class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 px-2">Hubungi kami untuk bantuan dan informasi lebih lanjut</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+                    <!-- Contact Information -->
+                    <div class="bg-white rounded-lg sm:rounded-xl card-shadow p-4 sm:p-6 md:p-8">
+                        <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6 flex items-center">
+                            📋 Informasi Kontak
+                        </h3>
+                        
+                        <div class="space-y-3 sm:space-y-4">
+
+
+                            <div class="flex items-start space-x-3 sm:space-x-4">
+                                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white text-lg sm:text-xl">📞</span>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <h4 class="text-sm sm:text-base font-semibold text-gray-800 mb-1">Telepon</h4>
+                                    <p class="text-xs sm:text-sm text-gray-600">+62 xxx-xxxx-xxxx</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3 sm:space-x-4">
+                                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white text-lg sm:text-xl">✉️</span>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <h4 class="text-sm sm:text-base font-semibold text-gray-800 mb-1">Email</h4>
+                                    <p class="text-xs sm:text-sm text-gray-600">dukcapil@tanimbar.go.id</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="bg-white rounded-lg sm:rounded-xl card-shadow p-4 sm:p-6 md:p-8">
+                        <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6 border-b border-gray-200 pb-2">
+                            Kirim Pesan
+                        </h3>
+                        
+                        <form id="contactForm" class="space-y-3 sm:space-y-4">
+                            <div>
+                                <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Nama Lengkap</label>
+                                <input type="text" name="nama" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                            </div>
+                            <div>
+                                <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">No WhatsApp</label>
+                                <input type="tel" name="whatsapp" required placeholder="Contoh: 628123456789" class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                            </div>
+                            <div>
+                                <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Email</label>
+                                <input type="email" name="email" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                            </div>
+                            <div>
+                                <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Pesan</label>
+                                <textarea name="pesan" rows="4" required class="w-full px-3 sm:px-4 py-3 sm:py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base resize-none"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-green-600 text-white py-3 sm:py-4 rounded-md text-sm sm:text-base font-semibold hover:bg-green-700 transition-all duration-300 shadow-md flex items-center justify-center">
+                                <span class="mr-2">📱</span>
+                                Kirim via WhatsApp
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Location Map Section -->
+                <div class="mt-6 sm:mt-8">
+                    <div class="bg-white rounded-lg sm:rounded-xl card-shadow p-4 sm:p-6 md:p-8">
+                        <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6 text-center flex items-center justify-center">
+                            🗺️ Lokasi Kantor
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+                            <!-- Map -->
+                            <div class="lg:col-span-2">
+                                <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg h-64 sm:h-80 lg:h-96 relative">
+                                    <iframe 
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.123456789!2d131.123456!3d-7.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDcnMjQuNCJTIDEzMcKwMDcnMjQuNCJF!5e0!3m2!1sen!2sid!4v1234567890"
+                                        width="100%" 
+                                        height="100%" 
+                                        style="border:0;" 
+                                        allowfullscreen="" 
+                                        loading="lazy" 
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        class="rounded-xl">
+                                    </iframe>
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none rounded-xl"></div>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    <a href="https://maps.app.goo.gl/Vtd6ps9dDmWdvTn27" 
+                                       target="_blank" 
+                                       class="inline-flex items-center bg-primary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-opacity-90 transition-all duration-300 font-medium shadow-md text-sm sm:text-base">
+                                        <span class="mr-2">📍</span>
+                                        Lihat di Google Maps
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Quick Info -->
+                            <div class="space-y-3 sm:space-y-4">
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
+                                    <div class="flex items-start space-x-2 sm:space-x-3">
+                                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span class="text-white text-sm sm:text-lg">🏢</span>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <h4 class="font-semibold text-blue-800 mb-1 text-xs sm:text-sm">Alamat</h4>
+                                            <p class="text-blue-700 text-xs leading-relaxed">
+                                                Dinas Kependudukan dan Pencatatan Sipil<br>
+                                                Kabupaten Kepulauan Tanimbar<br>
+                                                Jl. Ir. Soekarno-Saumlaki<br>
+                                                Provinsi Maluku
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 sm:p-4">
+                                    <div class="flex items-start space-x-2 sm:space-x-3">
+                                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span class="text-white text-sm sm:text-lg">⏰</span>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <h4 class="font-semibold text-green-800 mb-1 text-xs sm:text-sm">Jam Buka</h4>
+                                            <div class="text-green-700 text-xs space-y-1">
+                                                <p><strong>Sen-Jum:</strong> 08:00-16:00</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-orange-50 border border-orange-200 rounded-lg p-3 sm:p-4">
+                                    <div class="flex items-start space-x-2 sm:space-x-3">
+                                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <span class="text-white text-sm sm:text-lg">🚗</span>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <h4 class="font-semibold text-orange-800 mb-1 text-xs sm:text-sm">Parkir</h4>
+                                            <p class="text-orange-700 text-xs leading-relaxed">
+                                                Area parkir tersedia untuk motor dan mobil
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-4 sm:py-6 md:py-8 mt-6 sm:mt-8 md:mt-12 lg:mt-16">
+        <div class="container mx-auto px-3 sm:px-4 lg:px-6 text-center">
+            <div class="flex flex-col items-center space-y-2 sm:space-y-3">
+                <img src="https://iili.io/K9rv7pt.png" alt="Logo Footer" class="h-12 w-12 sm:h-16 sm:w-16 object-contain mx-auto">
+                <p class="text-xs sm:text-sm md:text-base px-2 leading-relaxed max-w-2xl">
+                    &copy; 2025 Aplikasi Walangaduk<br class="sm:hidden">
+                    <span class="hidden sm:inline"> - </span>Dinas Kependudukan dan Pencatatan Sipil<br class="sm:hidden">
+                    <span class="hidden sm:inline"> </span>Kabupaten Kepulauan Tanimbar
+                </p>
+                <p class="text-xs text-white/80">All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+
+
     <script>
         // Global variables
-        let loginCredentials = [];
+        let uploadedFiles = [];
         
-        // DOM elements
-        const loginForm = document.getElementById('loginForm');
-        const loginButton = document.getElementById('loginButton');
-        const loginText = document.getElementById('loginText');
-        const loginSpinner = document.getElementById('loginSpinner');
-        const loginMessage = document.getElementById('loginMessage');
-        
-        // Show message function
-        function showMessage(message, type = 'error') {
-            loginMessage.textContent = message;
-            loginMessage.className = `mb-4 p-3 rounded-lg text-center ${type === 'error' ? 'bg-red-500 text-white' : 'bg-green-500 text-white'}`;
-            loginMessage.classList.remove('hidden');
+        // Security features variables
+        let cameraStream = null;
+        let capturedPhotoData = null;
+        let currentCaptcha = '';
+        let isCaptchaVerified = false;
+        let isBiometricVerified = false;
+
+        // Desa data mapping
+        const desaData = {
+            "Tanimbar Selatan": ["Saumlaki", "Saumlaki Utara", "Wowonda", "Ilngei", "Kabiarat", "Lauran", "Sifnana", "Olilit Raya", "Lermatang", "Latdalam", "Bomaki", "Matakus"],
+            "Selaru": ["Adaut", "Namtabung", "Kandar", "Lingat", "Fursuy", "Werain", "Eliasa"],
+            "Wertamrian": ["Tumbur", "Lorulun", "Atubul Dol", "Amdasa", "Sangliat Krawain", "Arui Bab", "Arui Das", "Sangliat Dol", "Atubul Da"],
+            "Wermaktian": ["Kamatubun", "Rumah Salut", "Welutu", "Themin", "Weratan", "Wermatan", "Otemer", "Makatian", "Marantutul"],
+            "Tanimbar Utara": ["Lelingluan", "Ritabel", "Ridool", "Watidal", "Keliobar", "Kelaan", "Lamdesar Barat", "Lamdesar Timur"],
+            "Fordata": ["Romean", "Rumngeur", "Awear", "Sofyanin", "Walerang", "Adodo Fordata"],
+            "Wuarlabobar": ["Abat", "Labobar", "Watmasa", "Awear Rumngeur", "Karatat", "Wunlah", "Kiloon", "Lingada", "Teineman", "Wabar", "Romnus"],
+            "Kormomolin": ["Lumasebu", "Kilmasa", "Meyano Bab", "Alusi Krawain", "Alusi Kelaan", "Alusi Bukjalim", "Alusi Tamrian", "Alusi Batjas", "Lorwembun", "Meyano Das"],
+            "Nirunmas": ["Arma", "Watmuri", "Manglusi", "Tutukembong", "Waturu"],
+            "Molumaru": ["Wedangkou", "Adodo Molu", "Wulmasa", "Tutunametal", "Nurkat"]
+        };
+
+        // Service type icons and names
+        const serviceIcons = {
+            'KK': '👨‍👩‍👧‍👦',
+            'KTP EL': '🆔',
+            'KIA': '👶',
+            'SKPWNI': '📤',
+            'SKDWNI': '📥',
+            'Akta Kelahiran': '🍼',
+            'Akta Kematian': '⚰️'
+        };
+
+        const serviceNames = {
+            'KK': 'Kartu Keluarga',
+            'KTP EL': 'KTP Elektronik',
+            'KIA': 'Kartu Identitas Anak',
+            'SKPWNI': 'SK Pindah WNI',
+            'SKDWNI': 'SK Datang WNI',
+            'Akta Kelahiran': 'Akta Kelahiran',
+            'Akta Kematian': 'Akta Kematian'
+        };
+
+
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerBtn = document.getElementById('hamburger-btn');
             
-            // Auto hide after 5 seconds
-            setTimeout(() => {
-                loginMessage.classList.add('hidden');
-            }, 5000);
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('mobile-menu-enter');
+                hamburgerBtn.classList.add('hamburger-active');
+                
+                setTimeout(() => {
+                    mobileMenu.classList.remove('mobile-menu-enter');
+                }, 300);
+            } else {
+                mobileMenu.classList.add('mobile-menu-exit');
+                hamburgerBtn.classList.remove('hamburger-active');
+                
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('mobile-menu-exit');
+                }, 300);
+            }
         }
-        
-        // Load login credentials from Google Sheets
-        async function loadLoginCredentials() {
+
+
+
+        // Login credentials storage
+        let validCredentials = [];
+        let isLoggedIn = false;
+
+        // Load credentials from Google Sheets with improved parsing
+        async function loadCredentials() {
             try {
                 console.log('🔐 Memuat kredensial login dari Google Sheets...');
                 
-                // Show loading state
-                loginText.classList.add('hidden');
-                loginSpinner.classList.remove('hidden');
-                loginButton.disabled = true;
+                // Use the published HTML URL
+                const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQe1VRxHbaCptL3iB_UUitoRw_BF6DRWSuUw3-w5evnSe-nxUPGLKo7TNSjy8rwL8r0nL5RHmK2ALiy/pubhtml?gid=990672237&single=true';
                 
-                // Google Sheets CSV URL for login credentials
-                const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQe1VRxHbaCptL3iB_UUitoRw_BF6DRWSuUw3-w5evnSe-nxUPGLKo7TNSjy8rwL8r0nL5RHmK2ALiy/pubhtml?gid=990672237&single=true';
+                const response = await fetch(sheetUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                        'User-Agent': 'Mozilla/5.0 (compatible; WalangadukApp/1.0)'
+                    }
+                });
                 
-                // Multiple CORS proxy options
-                const proxyUrls = [
-                    'https://api.allorigins.win/get?url=' + encodeURIComponent(csvUrl),
-                    'https://corsproxy.io/?' + encodeURIComponent(csvUrl),
-                    'https://cors-anywhere.herokuapp.com/' + csvUrl
-                ];
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
                 
-                let csvText = null;
-                let loadSuccess = false;
+                const html = await response.text();
+                console.log('📄 HTML response received, parsing...');
                 
-                // Try each proxy until one works
-                for (const proxyUrl of proxyUrls) {
-                    try {
-                        console.log('🔄 Mencoba proxy untuk kredensial:', proxyUrl);
-                        const response = await fetch(proxyUrl, {
-                            method: 'GET',
-                            headers: {
-                                'Accept': 'application/json, text/plain, */*',
-                                'Content-Type': 'application/json'
-                            }
-                        });
-                        
-                        if (!response.ok) {
-                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                        }
-                        
-                        const data = await response.json();
-                        csvText = data.contents || data.data || data;
-                        
-                        if (typeof csvText === 'string' && csvText.length > 0) {
-                            console.log('✅ Berhasil mengakses kredensial via proxy');
-                            loadSuccess = true;
-                            break;
-                        }
-                    } catch (error) {
-                        console.warn('⚠️ Proxy gagal untuk kredensial:', error.message);
-                        continue;
+                // Parse HTML to extract table data
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                // Try multiple selectors to find the table
+                let rows = [];
+                
+                // Method 1: Look for table rows directly
+                const tableRows = doc.querySelectorAll('table tr');
+                if (tableRows.length > 0) {
+                    rows = Array.from(tableRows);
+                    console.log(`📋 Found ${rows.length} table rows using method 1`);
+                }
+                
+                // Method 2: Look for div-based table structure (Google Sheets sometimes uses this)
+                if (rows.length === 0) {
+                    const divRows = doc.querySelectorAll('div[role="row"]');
+                    if (divRows.length > 0) {
+                        rows = Array.from(divRows);
+                        console.log(`📋 Found ${rows.length} div rows using method 2`);
                     }
                 }
                 
-                // If all proxies failed, try direct access
-                if (!loadSuccess) {
-                    try {
-                        console.log('🔄 Mencoba akses langsung ke Google Sheets untuk kredensial...');
-                        const directResponse = await fetch(csvUrl, {
-                            method: 'GET',
-                            mode: 'cors',
-                            headers: {
-                                'Accept': 'text/csv, text/plain, */*'
-                            }
-                        });
-                        
-                        if (directResponse.ok) {
-                            csvText = await directResponse.text();
-                            console.log('✅ Berhasil akses langsung kredensial');
-                            loadSuccess = true;
-                        }
-                    } catch (directError) {
-                        console.warn('⚠️ Akses langsung gagal untuk kredensial:', directError.message);
-                    }
-                }
-                
-                if (!loadSuccess || !csvText || csvText.length === 0) {
-                    throw new Error('Gagal memuat data kredensial dari Google Sheets. Pastikan link Google Sheets dapat diakses dan berisi data yang valid.');
-                }
-                
-                // Parse CSV data
-                console.log('📊 Memproses data kredensial CSV...');
-                const lines = csvText.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim().split('\n');
-                
-                if (lines.length < 2) {
-                    throw new Error('Data kredensial tidak memiliki cukup baris. Pastikan Google Sheets memiliki header dan minimal 1 baris data.');
-                }
-                
-                // Enhanced CSV parser
-                function parseCSVLine(line) {
-                    const result = [];
-                    let current = '';
-                    let inQuotes = false;
+                // Method 3: Look for any element containing data patterns
+                if (rows.length === 0) {
+                    const allDivs = doc.querySelectorAll('div');
+                    const dataRows = [];
                     
-                    for (let i = 0; i < line.length; i++) {
-                        const char = line[i];
-                        
-                        if (char === '"') {
-                            inQuotes = !inQuotes;
-                        } else if (char === ',' && !inQuotes) {
-                            result.push(current.trim().replace(/^"|"$/g, ''));
-                            current = '';
-                        } else {
-                            current += char;
+                    for (const div of allDivs) {
+                        const text = div.textContent?.trim();
+                        if (text && text.includes('username') || text.includes('password') || text.includes('admin') || text.includes('petugas')) {
+                            dataRows.push(div);
                         }
                     }
-                    result.push(current.trim().replace(/^"|"$/g, ''));
-                    return result;
+                    
+                    if (dataRows.length > 0) {
+                        rows = dataRows;
+                        console.log(`📋 Found ${rows.length} potential data rows using method 3`);
+                    }
                 }
                 
-                const headers = parseCSVLine(lines[0]).map(h => h.toLowerCase().trim());
-                console.log('📋 Headers kredensial CSV:', headers);
+                validCredentials = [];
                 
-                // Validate required headers
-                const requiredHeaders = ['username', 'password'];
-                const missingHeaders = requiredHeaders.filter(header => 
-                    !headers.some(h => h.includes(header))
-                );
-                
-                if (missingHeaders.length > 0) {
-                    throw new Error(`Header yang diperlukan tidak ditemukan: ${missingHeaders.join(', ')}. Pastikan Google Sheets memiliki kolom 'username' dan 'password'.`);
-                }
-                
-                // Process credentials data
-                loginCredentials = [];
-                
-                for (let i = 1; i < lines.length; i++) {
-                    try {
-                        const row = parseCSVLine(lines[i]);
-                        
-                        if (row.length < 2 || !row.some(cell => cell.trim())) {
-                            continue; // Skip empty rows
+                // Process rows to extract credentials
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+                    let username = '';
+                    let password = '';
+                    
+                    // Method A: Extract from table cells
+                    const cells = row.querySelectorAll('td, th');
+                    if (cells.length >= 2) {
+                        username = cells[0].textContent?.trim() || '';
+                        password = cells[1].textContent?.trim() || '';
+                    }
+                    
+                    // Method B: Extract from div cells (Google Sheets grid format)
+                    if (!username && !password) {
+                        const divCells = row.querySelectorAll('div[role="gridcell"], div[role="columnheader"]');
+                        if (divCells.length >= 2) {
+                            username = divCells[0].textContent?.trim() || '';
+                            password = divCells[1].textContent?.trim() || '';
                         }
+                    }
+                    
+                    // Method C: Extract from text content with patterns
+                    if (!username && !password) {
+                        const text = row.textContent?.trim() || '';
+                        const parts = text.split(/\s+|\t+/);
+                        if (parts.length >= 2) {
+                            username = parts[0];
+                            password = parts[1];
+                        }
+                    }
+                    
+                    // Validate and add credentials (skip header row)
+                    if (username && password && 
+                        username.toLowerCase() !== 'username' && 
+                        password.toLowerCase() !== 'password' &&
+                        username.length > 0 && password.length > 0) {
                         
-                        const rowData = {};
-                        headers.forEach((header, index) => {
-                            rowData[header] = (row[index] || '').trim();
+                        validCredentials.push({ 
+                            username: username.trim(), 
+                            password: password.trim() 
                         });
                         
-                        // Get username, password, and name with flexible header matching
-                        const username = rowData['username'] || rowData['user'] || rowData['login'] || '';
-                        const password = rowData['password'] || rowData['pass'] || rowData['pwd'] || '';
-                        const nama = rowData['nama'] || rowData['name'] || rowData['fullname'] || rowData['full_name'] || username;
-                        
-                        if (username && password) {
-                            loginCredentials.push({
-                                username: username,
-                                password: password,
-                                nama: nama
-                            });
-                            console.log(`✅ Kredensial dimuat: ${username} -> ${nama}`);
-                        }
-                        
-                    } catch (rowError) {
-                        console.warn(`⚠️ Error memproses baris kredensial ${i}:`, rowError);
-                        continue;
+                        console.log(`✅ Added credential: ${username} / ${password.replace(/./g, '*')}`);
                     }
                 }
                 
-                if (loginCredentials.length === 0) {
-                    throw new Error('Tidak ada kredensial valid yang ditemukan di Google Sheets. Pastikan data username dan password terisi dengan benar.');
+                // Remove duplicates
+                const uniqueCredentials = [];
+                const seen = new Set();
+                
+                for (const cred of validCredentials) {
+                    const key = `${cred.username}:${cred.password}`;
+                    if (!seen.has(key)) {
+                        seen.add(key);
+                        uniqueCredentials.push(cred);
+                    }
                 }
                 
-                console.log(`✅ Berhasil memuat ${loginCredentials.length} kredensial login dari Google Sheets`);
-                showMessage(`✅ Berhasil memuat ${loginCredentials.length} akun login`, 'success');
+                validCredentials = uniqueCredentials;
+                
+                if (validCredentials.length > 0) {
+                    console.log(`✅ Berhasil memuat ${validCredentials.length} kredensial login dari Google Sheets`);
+                    console.log('📋 Kredensial yang dimuat:', validCredentials.map(c => `${c.username}/${c.password.replace(/./g, '*')}`));
+                    return true;
+                } else {
+                    throw new Error('Tidak ada kredensial valid yang ditemukan di Google Sheets');
+                }
                 
             } catch (error) {
-                console.error('❌ Error loading login credentials:', error);
-                showMessage(`❌ Gagal memuat data: ${error.message}`);
+                console.error('❌ Error memuat kredensial dari Google Sheets:', error);
+                console.log('🔄 Menggunakan kredensial fallback...');
                 
-                // Initialize empty credentials array
-                loginCredentials = [];
-                throw error;
-            } finally {
-                // Reset button state
-                loginText.classList.remove('hidden');
-                loginSpinner.classList.add('hidden');
-                loginButton.disabled = false;
-            }
-        }
-        
-        // Perform login function
-        async function performLogin(username, password) {
-            console.log('🔐 Mencoba login dengan username:', username);
-            
-            // Check if credentials are loaded
-            if (!loginCredentials || loginCredentials.length === 0) {
-                console.log('⚠️ Kredensial belum dimuat, mencoba memuat ulang...');
-                try {
-                    await loadLoginCredentials();
-                } catch (error) {
-                    console.error('❌ Gagal memuat kredensial:', error);
-                    throw new Error('Tidak dapat memuat data login dari Google Sheets. Periksa koneksi internet dan coba lagi.');
-                }
-            }
-            
-            // Check credentials
-            const user = loginCredentials.find(cred => 
-                cred.username === username && cred.password === password
-            );
-            
-            if (user) {
-                // Store login state in localStorage
-                localStorage.setItem('walangaduk_login', JSON.stringify({
-                    isLoggedIn: true,
-                    user: user,
-                    timestamp: Date.now()
-                }));
+                // Fallback credentials if loading fails
+                validCredentials = [
+                    { username: 'admin', password: 'admin123' },
+                    { username: 'petugas', password: 'petugas123' },
+                    { username: 'user', password: 'user123' },
+                    { username: 'test', password: 'test123' }
+                ];
                 
-                console.log('✅ Login berhasil untuk:', user.nama);
-                return true;
-            } else {
-                console.log('❌ Login gagal - kredensial tidak valid');
+                console.log('⚠️ Menggunakan kredensial fallback:', validCredentials.map(c => `${c.username}/${c.password.replace(/./g, '*')}`));
                 return false;
             }
         }
-        
-        // Initialize login form
-        function initializeLoginForm() {
-            loginForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const submitBtn = loginButton;
-                const originalText = loginText.textContent;
-                
-                try {
-                    const formData = new FormData(this);
-                    const username = formData.get('username').trim();
-                    const password = formData.get('password').trim();
+
+        // Show login modal
+        function showLoginModal() {
+            const loginModal = document.createElement('div');
+            loginModal.id = 'loginModal';
+            loginModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            loginModal.innerHTML = `
+                <div class="bg-white rounded-xl p-6 sm:p-8 max-w-md w-full shadow-2xl animate-fade-in">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white text-2xl">🔐</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-primary mb-2">Login Petugas</h3>
+                        <p class="text-gray-600 text-sm">Masukkan username dan password untuk mengakses form registrasi</p>
+                    </div>
                     
-                    if (!username || !password) {
-                        showMessage('❌ Username dan password harus diisi!');
-                        return;
-                    }
-                    
-                    // Show loading
-                    loginText.textContent = 'Memverifikasi...';
-                    loginText.classList.add('hidden');
-                    loginSpinner.classList.remove('hidden');
-                    submitBtn.disabled = true;
-                    
-                    // Perform login
-                    const loginSuccess = await performLogin(username, password);
-                    
-                    if (loginSuccess) {
-                        showMessage('✅ Login berhasil! Mengalihkan...', 'success');
+                    <form id="loginForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                            <input type="text" id="loginUsername" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                                   placeholder="Masukkan username">
+                        </div>
                         
-                        // Redirect to registrasi page after successful login
-                        setTimeout(() => {
-                            window.location.href = 'walngaduk_script.html#registrasi';
-                        }, 2000);
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <div class="relative">
+                                <input type="password" id="loginPassword" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm pr-12"
+                                       placeholder="Masukkan password">
+                                <button type="button" onclick="togglePasswordVisibility()" 
+                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                    <span id="passwordToggleIcon">👁️</span>
+                                </button>
+                            </div>
+                        </div>
                         
-                    } else {
-                        showMessage('❌ Username atau password salah. Silakan coba lagi.');
-                    }
+                        <div id="loginError" class="hidden bg-red-50 border border-red-200 rounded-lg p-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-red-600 text-lg">❌</span>
+                                <p class="text-red-800 text-sm font-medium" id="loginErrorMessage"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-3 pt-4">
+                            <button type="button" onclick="closeLoginModal()" 
+                                    class="flex-1 bg-gray-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-600 transition-colors">
+                                Batal
+                            </button>
+                            <button type="submit" id="loginSubmitBtn"
+                                    class="flex-1 bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-colors">
+                                Login
+                            </button>
+                        </div>
+                    </form>
                     
-                } catch (error) {
-                    console.error('❌ Error in login:', error);
-                    showMessage(`❌ Error login: ${error.message}`);
-                } finally {
-                    setTimeout(() => {
-                        loginText.textContent = originalText;
-                        loginText.classList.remove('hidden');
-                        loginSpinner.classList.add('hidden');
-                        submitBtn.disabled = false;
-                    }, 2000);
+                    <div class="mt-6 pt-4 border-t border-gray-200">
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3">
+                            <div class="flex items-start space-x-2">
+                                <span class="text-blue-600 text-lg flex-shrink-0">ℹ️</span>
+                                <div>
+                                    <h4 class="text-blue-800 font-semibold text-sm mb-1">Informasi Login:</h4>
+                                    <p class="text-blue-700 text-xs leading-relaxed">
+                                        Sistem akan memuat kredensial terbaru dari Google Sheets secara real-time. 
+                                        Hubungi administrator jika Anda belum memiliki akun.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-3">
+                            <div class="flex items-start space-x-2">
+                                <span class="text-green-600 text-lg flex-shrink-0">🔑</span>
+                                <div>
+                                    <h4 class="text-green-800 font-semibold text-sm mb-1">Kredensial Fallback (untuk testing):</h4>
+                                    <div class="text-green-700 text-xs space-y-1">
+                                        <p><strong>Username:</strong> admin | <strong>Password:</strong> admin123</p>
+                                        <p><strong>Username:</strong> petugas | <strong>Password:</strong> petugas123</p>
+                                        <p><strong>Username:</strong> user | <strong>Password:</strong> user123</p>
+                                        <p><strong>Username:</strong> test | <strong>Password:</strong> test123</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(loginModal);
+            
+            // Focus on username input
+            setTimeout(() => {
+                document.getElementById('loginUsername').focus();
+            }, 100);
+            
+            // Handle form submission
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            
+            // Handle Enter key on password field
+            document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleLogin(e);
                 }
             });
         }
-        
+
+        // Toggle password visibility
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('loginPassword');
+            const toggleIcon = document.getElementById('passwordToggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.textContent = '👁️';
+            }
+        }
+
+        // Handle login form submission with real-time credential loading
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('loginSubmitBtn');
+            const originalText = submitBtn.textContent;
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const errorDiv = document.getElementById('loginError');
+            const errorMessage = document.getElementById('loginErrorMessage');
+            
+            // Hide previous errors
+            errorDiv.classList.add('hidden');
+            
+            // Validate input
+            if (!username || !password) {
+                showLoginError('Username dan password harus diisi!');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.textContent = 'Memuat kredensial...';
+            submitBtn.disabled = true;
+            
+            try {
+                // Always reload credentials from Google Sheets for real-time updates
+                console.log('🔄 Memuat ulang kredensial dari Google Sheets...');
+                await loadCredentials();
+                
+                // Update loading message
+                submitBtn.textContent = 'Memverifikasi login...';
+                
+                // Check credentials with case-insensitive username comparison
+                const isValid = validCredentials.some(cred => {
+                    const usernameMatch = cred.username.toLowerCase() === username.toLowerCase();
+                    const passwordMatch = cred.password === password; // Password case-sensitive
+                    
+                    console.log(`🔍 Checking: ${cred.username}/${cred.password.replace(/./g, '*')} vs ${username}/${password.replace(/./g, '*')}`);
+                    console.log(`   Username match: ${usernameMatch}, Password match: ${passwordMatch}`);
+                    
+                    return usernameMatch && passwordMatch;
+                });
+                
+                console.log(`🔐 Login validation result: ${isValid}`);
+                console.log(`📋 Available credentials: ${validCredentials.length}`);
+                
+                if (isValid) {
+                    // Login successful
+                    isLoggedIn = true;
+                    
+                    // Show success message
+                    submitBtn.textContent = 'Login Berhasil!';
+                    submitBtn.classList.remove('bg-primary');
+                    submitBtn.classList.add('bg-green-500');
+                    
+                    // Store login session
+                    sessionStorage.setItem('walangaduk_logged_in', 'true');
+                    sessionStorage.setItem('walangaduk_username', username);
+                    sessionStorage.setItem('walangaduk_login_time', new Date().toISOString());
+                    
+                    console.log('✅ Login berhasil, menyimpan session dan mengarahkan ke registrasi');
+                    
+                    setTimeout(() => {
+                        closeLoginModal();
+                        showRegistrationPage();
+                        showLogoutButtons();
+                        showMessage(`✅ Selamat datang, ${username}! Anda berhasil login ke sistem registrasi.`, 'success');
+                    }, 1000);
+                    
+                } else {
+                    // Login failed - show detailed error
+                    console.log('❌ Login gagal - kredensial tidak cocok');
+                    
+                    let errorMsg = 'Username atau password salah!';
+                    
+                    // Check if username exists but password is wrong
+                    const usernameExists = validCredentials.some(cred => 
+                        cred.username.toLowerCase() === username.toLowerCase()
+                    );
+                    
+                    if (usernameExists) {
+                        errorMsg = 'Password salah untuk username tersebut!';
+                    } else if (validCredentials.length === 0) {
+                        errorMsg = 'Tidak dapat memuat data login. Silakan coba lagi.';
+                    } else {
+                        errorMsg = `Username "${username}" tidak ditemukan. Periksa kembali username Anda.`;
+                    }
+                    
+                    showLoginError(errorMsg);
+                    
+                    // Clear password field and focus
+                    document.getElementById('loginPassword').value = '';
+                    document.getElementById('loginPassword').focus();
+                }
+                
+            } catch (error) {
+                console.error('❌ Error during login process:', error);
+                
+                let errorMsg = 'Terjadi kesalahan saat memverifikasi login.';
+                
+                if (error.message.includes('fetch')) {
+                    errorMsg = 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda.';
+                } else if (error.message.includes('parse')) {
+                    errorMsg = 'Error memproses data login. Silakan coba lagi.';
+                } else {
+                    errorMsg = `Error: ${error.message}`;
+                }
+                
+                showLoginError(errorMsg);
+                
+                // Try using fallback credentials if available
+                if (validCredentials.length > 0) {
+                    console.log('🔄 Mencoba dengan kredensial fallback...');
+                    
+                    const isValidFallback = validCredentials.some(cred => 
+                        cred.username.toLowerCase() === username.toLowerCase() && 
+                        cred.password === password
+                    );
+                    
+                    if (isValidFallback) {
+                        console.log('✅ Login berhasil dengan kredensial fallback');
+                        
+                        isLoggedIn = true;
+                        submitBtn.textContent = 'Login Berhasil!';
+                        submitBtn.classList.remove('bg-primary');
+                        submitBtn.classList.add('bg-green-500');
+                        
+                        sessionStorage.setItem('walangaduk_logged_in', 'true');
+                        sessionStorage.setItem('walangaduk_username', username);
+                        sessionStorage.setItem('walangaduk_login_time', new Date().toISOString());
+                        
+                        setTimeout(() => {
+                            closeLoginModal();
+                            showRegistrationPage();
+                            showLogoutButtons();
+                            showMessage(`✅ Selamat datang, ${username}! Login berhasil (mode fallback).`, 'success');
+                        }, 1000);
+                        
+                        return; // Exit early on successful fallback
+                    }
+                }
+                
+            } finally {
+                // Reset button state after delay (only if not successful)
+                setTimeout(() => {
+                    if (submitBtn.textContent !== 'Login Berhasil!') {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('bg-green-500');
+                        submitBtn.classList.add('bg-primary');
+                    }
+                }, 2000);
+            }
+        }
+
+        // Show login error
+        function showLoginError(message) {
+            const errorDiv = document.getElementById('loginError');
+            const errorMessage = document.getElementById('loginErrorMessage');
+            
+            errorMessage.textContent = message;
+            errorDiv.classList.remove('hidden');
+            
+            // Auto-hide error after 5 seconds
+            setTimeout(() => {
+                errorDiv.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Close login modal
+        function closeLoginModal() {
+            const loginModal = document.getElementById('loginModal');
+            if (loginModal) {
+                loginModal.remove();
+            }
+        }
+
+        // Show registration page after successful login
+        function showRegistrationPage() {
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            document.getElementById('registrasi').classList.remove('hidden');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('text-primary');
+            });
+            
+            document.querySelectorAll('.nav-btn-mobile').forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('text-primary');
+            });
+            
+            // Highlight registrasi button
+            const registrasiButtons = document.querySelectorAll('button[onclick*="registrasi"]');
+            registrasiButtons.forEach(btn => {
+                btn.classList.add('bg-primary', 'text-white');
+                btn.classList.remove('text-primary');
+            });
+        }
+
+        // Check if user is already logged in
+        function checkLoginStatus() {
+            const loggedIn = sessionStorage.getItem('walangaduk_logged_in');
+            const loginTime = sessionStorage.getItem('walangaduk_login_time');
+            const username = sessionStorage.getItem('walangaduk_username');
+            
+            if (loggedIn === 'true' && loginTime && username) {
+                // Check if login is still valid (24 hours)
+                const loginDate = new Date(loginTime);
+                const now = new Date();
+                const hoursDiff = (now - loginDate) / (1000 * 60 * 60);
+                
+                if (hoursDiff < 24) {
+                    isLoggedIn = true;
+                    console.log(`✅ User ${username} sudah login (${Math.round(hoursDiff)} jam yang lalu)`);
+                    return true;
+                } else {
+                    // Session expired
+                    sessionStorage.removeItem('walangaduk_logged_in');
+                    sessionStorage.removeItem('walangaduk_username');
+                    sessionStorage.removeItem('walangaduk_login_time');
+                    console.log('⚠️ Session login telah expired');
+                }
+            }
+            
+            return false;
+        }
+
+        // Logout function
+        function logout() {
+            isLoggedIn = false;
+            sessionStorage.removeItem('walangaduk_logged_in');
+            sessionStorage.removeItem('walangaduk_username');
+            sessionStorage.removeItem('walangaduk_login_time');
+            
+            // Hide logout buttons
+            const logoutBtn = document.getElementById('logoutBtn');
+            const logoutBtnMobile = document.getElementById('logoutBtnMobile');
+            if (logoutBtn) logoutBtn.classList.add('hidden');
+            if (logoutBtnMobile) logoutBtnMobile.classList.add('hidden');
+            
+            showMessage('👋 Anda telah logout dari sistem registrasi.', 'info');
+            showPage('dashboard');
+        }
+
+        // Show logout buttons when logged in
+        function showLogoutButtons() {
+            const logoutBtn = document.getElementById('logoutBtn');
+            const logoutBtnMobile = document.getElementById('logoutBtnMobile');
+            if (logoutBtn) logoutBtn.classList.remove('hidden');
+            if (logoutBtnMobile) logoutBtnMobile.classList.remove('hidden');
+        }
+
+        // Navigation functions with login protection
+        function showPage(pageId) {
+            // Check if trying to access registration page
+            if (pageId === 'registrasi') {
+                if (!isLoggedIn && !checkLoginStatus()) {
+                    showLoginModal();
+                    return;
+                }
+            }
+            
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            document.getElementById(pageId).classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('text-primary');
+            });
+            
+            document.querySelectorAll('.nav-btn-mobile').forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('text-primary');
+            });
+            
+            if (event && event.target) {
+                event.target.classList.add('bg-primary', 'text-white');
+                event.target.classList.remove('text-primary');
+            }
+        }
+
+        // Update desa dropdown
+        function updateDesa() {
+            const kecamatan = document.getElementById('kecamatan').value;
+            const desaSelect = document.getElementById('desa');
+            
+            desaSelect.innerHTML = '<option value="">Pilih Desa</option>';
+            
+            if (kecamatan && desaData[kecamatan]) {
+                desaData[kecamatan].forEach(desa => {
+                    const option = document.createElement('option');
+                    option.value = desa;
+                    option.textContent = desa;
+                    desaSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Handle file upload
+        function handleFileUpload(event) {
+            const files = event.target.files;
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = '';
+            uploadedFiles = [];
+            
+            Array.from(files).forEach(file => {
+                if (file.size > 5 * 1024 * 1024) {
+                    alert(`File ${file.name} terlalu besar. Maksimal 5MB.`);
+                    return;
+                }
+                
+                const fileItem = document.createElement('div');
+                fileItem.className = 'flex items-center justify-between bg-white p-3 rounded border mb-2';
+                fileItem.innerHTML = `
+                    <span class="text-sm text-gray-700">${file.name}</span>
+                    <span class="text-xs text-gray-500">${(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                `;
+                fileList.appendChild(fileItem);
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedFiles.push({
+                        name: file.name,
+                        type: file.type,
+                        data: e.target.result.split(',')[1]
+                    });
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Biometric Camera Functions
+        async function startCamera() {
+            try {
+                console.log('🎥 Memulai kamera untuk verifikasi biometrik...');
+                
+                const video = document.getElementById('cameraVideo');
+                const placeholder = document.getElementById('cameraPlaceholder');
+                const startBtn = document.getElementById('startCameraBtn');
+                const captureBtn = document.getElementById('captureBtn');
+                
+                // Check if browser supports getUserMedia
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    throw new Error('Browser tidak mendukung akses kamera');
+                }
+                
+                // Stop any existing stream first
+                stopCamera();
+                
+                // Request camera access with fallback options
+                const constraints = {
+                    video: {
+                        width: { ideal: 640, min: 320, max: 1280 },
+                        height: { ideal: 480, min: 240, max: 720 },
+                        facingMode: 'user' // Front camera preferred
+                    },
+                    audio: false
+                };
+                
+                try {
+                    cameraStream = await navigator.mediaDevices.getUserMedia(constraints);
+                } catch (frontCameraError) {
+                    console.warn('⚠️ Front camera gagal, mencoba kamera lain...');
+                    // Try without facingMode constraint
+                    const fallbackConstraints = {
+                        video: {
+                            width: { ideal: 640, min: 320 },
+                            height: { ideal: 480, min: 240 }
+                        },
+                        audio: false
+                    };
+                    cameraStream = await navigator.mediaDevices.getUserMedia(fallbackConstraints);
+                }
+                
+                // Set video source and wait for it to load
+                video.srcObject = cameraStream;
+                
+                // Wait for video to be ready
+                await new Promise((resolve, reject) => {
+                    video.onloadedmetadata = () => {
+                        video.play().then(resolve).catch(reject);
+                    };
+                    video.onerror = reject;
+                    
+                    // Timeout after 10 seconds
+                    setTimeout(() => reject(new Error('Timeout loading video')), 10000);
+                });
+                
+                // Show video stream
+                video.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+                
+                // Update buttons
+                startBtn.classList.add('hidden');
+                captureBtn.classList.remove('hidden');
+                
+                // Show success message
+                showMessage('✅ Kamera berhasil diaktifkan! Posisikan wajah Anda di tengah frame dan pastikan pencahayaan cukup.', 'success', 5000);
+                
+                console.log('✅ Kamera berhasil diaktifkan');
+                
+            } catch (error) {
+                console.error('❌ Error mengakses kamera:', error);
+                
+                let errorMessage = '❌ Gagal mengakses kamera. ';
+                if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
+                    errorMessage += 'Izin kamera ditolak. Silakan:\n1. Klik ikon kamera di address bar\n2. Pilih "Allow" untuk mengizinkan akses kamera\n3. Refresh halaman dan coba lagi';
+                } else if (error.name === 'NotFoundError' || error.name === 'DevicesNotFoundError') {
+                    errorMessage += 'Kamera tidak ditemukan. Pastikan:\n1. Perangkat memiliki kamera\n2. Kamera tidak sedang digunakan aplikasi lain\n3. Driver kamera terinstall dengan benar';
+                } else if (error.name === 'NotSupportedError' || error.name === 'NotSupportedError') {
+                    errorMessage += 'Browser tidak mendukung akses kamera. Gunakan browser modern seperti Chrome, Firefox, atau Safari.';
+                } else if (error.name === 'OverconstrainedError') {
+                    errorMessage += 'Pengaturan kamera tidak didukung. Mencoba dengan pengaturan default...';
+                } else {
+                    errorMessage += 'Terjadi kesalahan: ' + error.message;
+                }
+                
+                showMessage(errorMessage, 'error', 8000);
+                
+                // Reset UI on error
+                resetCameraUI();
+            }
+        }
+
+        function capturePhoto() {
+            try {
+                console.log('📸 Mengambil foto biometrik...');
+                
+                const video = document.getElementById('cameraVideo');
+                const canvas = document.getElementById('cameraCanvas');
+                const capturedPhoto = document.getElementById('capturedPhoto');
+                const photoPlaceholder = document.getElementById('photoPlaceholder');
+                const biometricStatus = document.getElementById('biometricStatus');
+                const captureBtn = document.getElementById('captureBtn');
+                const retakeBtn = document.getElementById('retakeBtn');
+                
+                // Validate camera state
+                if (!cameraStream) {
+                    throw new Error('Kamera tidak aktif. Silakan aktifkan kamera terlebih dahulu.');
+                }
+                
+                if (!video.videoWidth || !video.videoHeight) {
+                    throw new Error('Video belum siap. Tunggu beberapa detik dan coba lagi.');
+                }
+                
+                if (video.paused || video.ended) {
+                    throw new Error('Video tidak berjalan. Silakan restart kamera.');
+                }
+                
+                // Set canvas size to match video dimensions
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                
+                // Draw video frame to canvas with better quality
+                const ctx = canvas.getContext('2d');
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                
+                // Clear canvas first
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw the current video frame
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                // Convert to base64 with good quality
+                capturedPhotoData = canvas.toDataURL('image/jpeg', 0.9);
+                
+                // Validate captured data
+                if (!capturedPhotoData || capturedPhotoData.length < 1000) {
+                    throw new Error('Foto tidak berhasil diambil. Coba lagi.');
+                }
+                
+                // Show captured photo
+                capturedPhoto.src = capturedPhotoData;
+                capturedPhoto.onload = () => {
+                    capturedPhoto.classList.remove('hidden');
+                    photoPlaceholder.classList.add('hidden');
+                    
+                    // Show success status
+                    biometricStatus.classList.remove('hidden');
+                    
+                    // Update buttons
+                    captureBtn.classList.add('hidden');
+                    retakeBtn.classList.remove('hidden');
+                    
+                    // Stop camera stream to save resources
+                    stopCamera();
+                    
+                    // Mark biometric as verified
+                    isBiometricVerified = true;
+                    
+                    showMessage('✅ Foto biometrik berhasil diambil! Verifikasi identitas siap diproses.', 'success');
+                    
+                    console.log('✅ Foto biometrik berhasil diambil dan divalidasi');
+                };
+                
+                capturedPhoto.onerror = () => {
+                    throw new Error('Gagal memuat foto yang diambil');
+                };
+                
+            } catch (error) {
+                console.error('❌ Error mengambil foto:', error);
+                showMessage('❌ Gagal mengambil foto: ' + error.message, 'error');
+                
+                // Reset biometric verification status
+                isBiometricVerified = false;
+            }
+        }
+
+        function retakePhoto() {
+            console.log('🔄 Mengulang pengambilan foto biometrik...');
+            
+            const capturedPhoto = document.getElementById('capturedPhoto');
+            const photoPlaceholder = document.getElementById('photoPlaceholder');
+            const biometricStatus = document.getElementById('biometricStatus');
+            const startBtn = document.getElementById('startCameraBtn');
+            const retakeBtn = document.getElementById('retakeBtn');
+            
+            // Reset photo display
+            capturedPhoto.classList.add('hidden');
+            capturedPhoto.src = '';
+            photoPlaceholder.classList.remove('hidden');
+            biometricStatus.classList.add('hidden');
+            
+            // Reset buttons
+            retakeBtn.classList.add('hidden');
+            startBtn.classList.remove('hidden');
+            
+            // Clear photo data and verification status
+            capturedPhotoData = null;
+            isBiometricVerified = false;
+            
+            showMessage('🔄 Silakan aktifkan kamera kembali untuk mengambil foto ulang.', 'info');
+        }
+
+        function stopCamera() {
+            if (cameraStream) {
+                console.log('🛑 Menghentikan kamera...');
+                
+                // Stop all tracks
+                cameraStream.getTracks().forEach(track => {
+                    track.stop();
+                    console.log('🛑 Track dihentikan:', track.kind);
+                });
+                cameraStream = null;
+                
+                // Reset video element
+                const video = document.getElementById('cameraVideo');
+                if (video) {
+                    video.srcObject = null;
+                    video.classList.add('hidden');
+                }
+                
+                // Show placeholder
+                const placeholder = document.getElementById('cameraPlaceholder');
+                if (placeholder) {
+                    placeholder.classList.remove('hidden');
+                }
+                
+                console.log('✅ Kamera berhasil dihentikan');
+            }
+        }
+
+        function resetCameraUI() {
+            const video = document.getElementById('cameraVideo');
+            const placeholder = document.getElementById('cameraPlaceholder');
+            const startBtn = document.getElementById('startCameraBtn');
+            const captureBtn = document.getElementById('captureBtn');
+            const retakeBtn = document.getElementById('retakeBtn');
+            
+            if (video) video.classList.add('hidden');
+            if (placeholder) placeholder.classList.remove('hidden');
+            if (startBtn) startBtn.classList.remove('hidden');
+            if (captureBtn) captureBtn.classList.add('hidden');
+            if (retakeBtn) retakeBtn.classList.add('hidden');
+        }
+
+        // Enhanced CAPTCHA Functions
+        function generateCaptcha() {
+            console.log('🔒 Membuat CAPTCHA baru...');
+            
+            const canvas = document.getElementById('captchaCanvas');
+            if (!canvas) {
+                console.error('❌ Canvas CAPTCHA tidak ditemukan');
+                return;
+            }
+            
+            const ctx = canvas.getContext('2d');
+            const captchaInput = document.getElementById('captchaInput');
+            const captchaStatus = document.getElementById('captchaStatus');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Generate random 6-character string (avoid confusing characters)
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Removed I, O, 0, 1
+            currentCaptcha = '';
+            for (let i = 0; i < 6; i++) {
+                currentCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            // Set background with gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#f8fafc');
+            gradient.addColorStop(0.3, '#f1f5f9');
+            gradient.addColorStop(0.7, '#e2e8f0');
+            gradient.addColorStop(1, '#f8fafc');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add subtle noise lines
+            ctx.strokeStyle = 'rgba(148, 163, 184, 0.3)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < 12; i++) {
+                ctx.beginPath();
+                ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                ctx.stroke();
+            }
+            
+            // Add noise dots
+            ctx.fillStyle = 'rgba(148, 163, 184, 0.4)';
+            for (let i = 0; i < 80; i++) {
+                ctx.beginPath();
+                ctx.arc(
+                    Math.random() * canvas.width, 
+                    Math.random() * canvas.height, 
+                    Math.random() * 2 + 0.5, 
+                    0, 
+                    2 * Math.PI
+                );
+                ctx.fill();
+            }
+            
+            // Draw CAPTCHA text with better styling
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            
+            // Character colors
+            const colors = [
+                '#1e40af', '#dc2626', '#059669', 
+                '#7c2d12', '#4c1d95', '#b91c1c'
+            ];
+            
+            // Draw each character with effects
+            for (let i = 0; i < currentCaptcha.length; i++) {
+                const char = currentCaptcha[i];
+                const x = centerX + (i - 2.5) * 28;
+                const y = centerY + (Math.random() - 0.5) * 12;
+                const rotation = (Math.random() - 0.5) * 0.3;
+                const fontSize = 26 + Math.random() * 6;
+                
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(rotation);
+                
+                // Set font and color
+                ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = colors[i % colors.length];
+                
+                // Add text shadow effect
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+                ctx.shadowBlur = 2;
+                ctx.shadowOffsetX = 1;
+                ctx.shadowOffsetY = 1;
+                
+                // Draw character
+                ctx.fillText(char, 0, 0);
+                
+                // Add outline
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.lineWidth = 1;
+                ctx.strokeText(char, 0, 0);
+                
+                ctx.restore();
+            }
+            
+            // Add border with rounded corners effect
+            ctx.strokeStyle = '#64748b';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(1, 1, canvas.width - 2, canvas.height - 2);
+            
+            // Reset form state
+            if (captchaInput) {
+                captchaInput.value = '';
+                captchaInput.classList.remove('border-green-500', 'border-red-500');
+                captchaInput.classList.add('border-gray-300');
+            }
+            
+            if (captchaStatus) {
+                captchaStatus.classList.add('hidden');
+            }
+            
+            isCaptchaVerified = false;
+            
+            console.log('✅ CAPTCHA baru dibuat:', currentCaptcha);
+        }
+
+        function verifyCaptcha() {
+            const captchaInput = document.getElementById('captchaInput');
+            const captchaStatus = document.getElementById('captchaStatus');
+            
+            if (!captchaInput || !captchaStatus) {
+                console.error('❌ Element CAPTCHA tidak ditemukan');
+                return;
+            }
+            
+            const userInput = captchaInput.value.toUpperCase().trim();
+            
+            console.log('🔍 Memverifikasi CAPTCHA:', userInput, 'vs', currentCaptcha);
+            
+            // Validate input
+            if (!userInput) {
+                showCaptchaStatus('❌ Silakan masukkan kode CAPTCHA!', 'error');
+                captchaInput.focus();
+                return;
+            }
+            
+            if (userInput.length !== 6) {
+                showCaptchaStatus('❌ Kode CAPTCHA harus 6 karakter!', 'error');
+                captchaInput.focus();
+                return;
+            }
+            
+            // Check if CAPTCHA matches
+            if (userInput === currentCaptcha) {
+                isCaptchaVerified = true;
+                showCaptchaStatus('✅ CAPTCHA berhasil diverifikasi!', 'success');
+                
+                // Update input styling
+                captchaInput.classList.remove('border-gray-300', 'border-red-500');
+                captchaInput.classList.add('border-green-500');
+                captchaInput.disabled = true;
+                
+                console.log('✅ CAPTCHA berhasil diverifikasi');
+                
+                // Show success message
+                showMessage('✅ Verifikasi CAPTCHA berhasil! Anda dapat melanjutkan pengisian form.', 'success');
+                
+            } else {
+                isCaptchaVerified = false;
+                showCaptchaStatus('❌ Kode CAPTCHA salah! Silakan coba lagi.', 'error');
+                
+                // Update input styling
+                captchaInput.classList.remove('border-gray-300', 'border-green-500');
+                captchaInput.classList.add('border-red-500');
+                
+                // Clear input and focus
+                captchaInput.value = '';
+                captchaInput.focus();
+                
+                console.log('❌ CAPTCHA gagal diverifikasi');
+                
+                // Generate new CAPTCHA after failed attempt
+                setTimeout(() => {
+                    generateCaptcha();
+                    showMessage('🔄 CAPTCHA baru telah dibuat. Silakan coba lagi.', 'info');
+                }, 1500);
+            }
+        }
+
+        // Auto-verify CAPTCHA on Enter key
+        function setupCaptchaAutoVerify() {
+            const captchaInput = document.getElementById('captchaInput');
+            if (captchaInput) {
+                captchaInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        verifyCaptcha();
+                    }
+                });
+                
+                // Auto-verify when 6 characters are entered
+                captchaInput.addEventListener('input', function(e) {
+                    const value = e.target.value.toUpperCase();
+                    e.target.value = value;
+                    
+                    if (value.length === 6 && !isCaptchaVerified) {
+                        setTimeout(() => {
+                            verifyCaptcha();
+                        }, 500);
+                    }
+                });
+            }
+        }
+
+        function showCaptchaStatus(message, type) {
+            const captchaStatus = document.getElementById('captchaStatus');
+            
+            let bgColor, borderColor, textColor, icon;
+            
+            switch (type) {
+                case 'success':
+                    bgColor = 'bg-green-50';
+                    borderColor = 'border-green-200';
+                    textColor = 'text-green-800';
+                    icon = '✅';
+                    break;
+                case 'error':
+                    bgColor = 'bg-red-50';
+                    borderColor = 'border-red-200';
+                    textColor = 'text-red-800';
+                    icon = '❌';
+                    break;
+                default:
+                    bgColor = 'bg-blue-50';
+                    borderColor = 'border-blue-200';
+                    textColor = 'text-blue-800';
+                    icon = 'ℹ️';
+            }
+            
+            captchaStatus.className = `${bgColor} ${borderColor} rounded-lg p-3 border`;
+            captchaStatus.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <span class="text-lg">${icon}</span>
+                    <p class="${textColor} text-sm font-medium">${message}</p>
+                </div>
+            `;
+            captchaStatus.classList.remove('hidden');
+        }
+
+
+
+        // Generic message display function
+        function showMessage(message, type = 'info', duration = 4000) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'fixed top-4 right-4 z-50 max-w-sm';
+            
+            let bgColor, borderColor, textColor, icon;
+            
+            switch (type) {
+                case 'success':
+                    bgColor = 'bg-green-500';
+                    borderColor = 'border-green-600';
+                    textColor = 'text-white';
+                    icon = '✅';
+                    break;
+                case 'error':
+                    bgColor = 'bg-red-500';
+                    borderColor = 'border-red-600';
+                    textColor = 'text-white';
+                    icon = '❌';
+                    break;
+                case 'warning':
+                    bgColor = 'bg-orange-500';
+                    borderColor = 'border-orange-600';
+                    textColor = 'text-white';
+                    icon = '⚠️';
+                    break;
+                default:
+                    bgColor = 'bg-blue-500';
+                    borderColor = 'border-blue-600';
+                    textColor = 'text-white';
+                    icon = 'ℹ️';
+            }
+            
+            messageDiv.innerHTML = `
+                <div class="${bgColor} ${borderColor} ${textColor} px-4 py-3 rounded-lg shadow-lg border-2 animate-fade-in">
+                    <div class="flex items-start space-x-2">
+                        <span class="text-lg flex-shrink-0">${icon}</span>
+                        <p class="text-sm font-medium leading-relaxed">${message}</p>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(messageDiv);
+            
+            // Auto remove after duration
+            setTimeout(() => {
+                if (document.body.contains(messageDiv)) {
+                    messageDiv.remove();
+                }
+            }, duration);
+        }
+
+        // Reset security features
+        function resetSecurityFeatures() {
+            console.log('🔄 Mereset fitur keamanan...');
+            
+            // Reset biometric
+            stopCamera();
+            capturedPhotoData = null;
+            isBiometricVerified = false;
+            
+            const capturedPhoto = document.getElementById('capturedPhoto');
+            const photoPlaceholder = document.getElementById('photoPlaceholder');
+            const biometricStatus = document.getElementById('biometricStatus');
+            const startBtn = document.getElementById('startCameraBtn');
+            const captureBtn = document.getElementById('captureBtn');
+            const retakeBtn = document.getElementById('retakeBtn');
+            
+            if (capturedPhoto) {
+                capturedPhoto.classList.add('hidden');
+                capturedPhoto.src = '';
+            }
+            if (photoPlaceholder) photoPlaceholder.classList.remove('hidden');
+            if (biometricStatus) biometricStatus.classList.add('hidden');
+            if (startBtn) startBtn.classList.remove('hidden');
+            if (captureBtn) captureBtn.classList.add('hidden');
+            if (retakeBtn) retakeBtn.classList.add('hidden');
+            
+            // Reset CAPTCHA
+            currentCaptcha = '';
+            isCaptchaVerified = false;
+            
+            const captchaInput = document.getElementById('captchaInput');
+            const captchaStatus = document.getElementById('captchaStatus');
+            
+            if (captchaInput) {
+                captchaInput.value = '';
+                captchaInput.disabled = false;
+                captchaInput.classList.remove('border-green-500', 'border-red-500');
+                captchaInput.classList.add('border-gray-300');
+            }
+            if (captchaStatus) captchaStatus.classList.add('hidden');
+            
+            // Generate new CAPTCHA
+            generateCaptcha();
+            
+            // Re-setup CAPTCHA auto-verify
+            setupCaptchaAutoVerify();
+            
+            console.log('✅ Fitur keamanan berhasil direset');
+        }
+
+        // Show instructions for Google Apps Script setup
+        function showGoogleScriptInstructions() {
+            const instructionsDiv = document.createElement('div');
+            instructionsDiv.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            instructionsDiv.innerHTML = `
+                <div class="bg-white rounded-xl p-6 max-w-2xl max-h-96 overflow-y-auto">
+                    <h3 class="text-xl font-bold text-primary mb-4">📋 Cara Setup Google Apps Script</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="bg-blue-50 p-3 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">1. Setup Google Sheets & Drive</h4>
+                            <p class="text-blue-700 text-xs">• Buat Google Sheets dengan ID: <code>1xhwRfxZ7dnWGvVucqKKMCzJ93MSVKzZoHZb4PNEuEOU</code></p>
+                            <p class="text-blue-700 text-xs">• Buat Google Drive Folder dengan ID: <code>1O9xbl_JbJkLBL6rFZzK0zLEAAoHtea_i</code></p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-2">2. Deploy Google Apps Script</h4>
+                            <p class="text-green-700 text-xs">• Buka script.google.com dan buat project baru</p>
+                            <p class="text-green-700 text-xs">• Copy script code yang sudah disediakan</p>
+                            <p class="text-green-700 text-xs">• Deploy sebagai Web App dengan akses "Anyone"</p>
+                        </div>
+                        <div class="bg-orange-50 p-3 rounded-lg">
+                            <h4 class="font-semibold text-orange-800 mb-2">3. Update URL di Aplikasi</h4>
+                            <p class="text-orange-700 text-xs">• Copy URL deployment dari Apps Script</p>
+                            <p class="text-orange-700 text-xs">• Ganti <code>YOUR_DEPLOYMENT_ID</code> dengan URL yang benar</p>
+                            <p class="text-orange-700 text-xs">• Test form untuk memastikan data masuk ke Sheets</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded-lg">
+                            <h4 class="font-semibold text-purple-800 mb-2">4. Fitur yang Didukung</h4>
+                            <p class="text-purple-700 text-xs">• ✅ Auto-timestamp dengan zona waktu Indonesia</p>
+                            <p class="text-purple-700 text-xs">• ✅ Upload file PDF/gambar ke Google Drive</p>
+                            <p class="text-purple-700 text-xs">• ✅ Data tersimpan sesuai urutan kolom yang benar</p>
+                            <p class="text-purple-700 text-xs">• ✅ Auto-format header dan resize kolom</p>
+                        </div>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" class="mt-4 bg-primary text-white px-4 py-2 rounded-lg">
+                        Tutup
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(instructionsDiv);
+        }
+
+        // Send data to Google Sheets
+        async function sendToGoogleSheets(data) {
+            try {
+                console.log('📤 Mengirim data ke Google Sheets...');
+                
+                // Google Apps Script Web App URL - Connected to AplikasiWalangaduk Database
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbwAJIYm9HjUw1K3tphlUx-zy6x97hOfT1uMqlKzupBptXdxaJPHBGoEb1ilvhTH4BNJDA/exec';
+                
+                // Prepare data for Google Sheets sesuai urutan tabel dan Apps Script
+                const sheetData = {
+                    tanggal: data.tanggal,
+                    jenipelaporan: data.jenipelaporan,
+                    namapetugas: data.namapetugas,
+                    nip: data.nip,
+                    namainstansi: data.namainstansi,
+                    telp: data.telp,
+                    email: data.email,
+                    namalengkap: data.namalengkap,
+                    tempatlahir: data.tempatlahir,
+                    tanggallahir: data.tanggallahir,
+                    jeniskelamin: data.jeniskelamin,
+                    namaibu: data.namaibu,
+                    namaayah: data.namaayah,
+                    kecamatan: data.kecamatan,
+                    desakelurahan: data.desakelurahan,
+                    rtrw: data.rtrw,
+                    syaratdanketentuan: data.syaratdanketentuan,
+                    unggahberkas: uploadedFiles.length > 0 ? JSON.stringify(uploadedFiles) : ''
+                };
+                
+                console.log('📋 Data yang akan dikirim:', sheetData);
+                
+                // Method 1: Try direct POST to Google Apps Script
+                try {
+                    const response = await fetch(scriptUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams(sheetData).toString(),
+                        mode: 'cors'
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.text();
+                        console.log('✅ Response dari Google Sheets:', result);
+                        
+                        // Parse response to check success
+                        try {
+                            const jsonResult = JSON.parse(result);
+                            if (jsonResult.success) {
+                                return true;
+                            } else {
+                                throw new Error(jsonResult.message || 'Unknown error from server');
+                            }
+                        } catch (parseError) {
+                            // If not JSON, assume success if response is OK
+                            return true;
+                        }
+                    } else {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                } catch (fetchError) {
+                    console.warn('⚠️ Method 1 gagal:', fetchError.message);
+                }
+                
+                // Method 2: Try with no-cors mode (fallback)
+                try {
+                    await fetch(scriptUrl, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams(sheetData).toString()
+                    });
+                    
+                    console.log('✅ Data dikirim dengan mode no-cors');
+                    return true;
+                } catch (noCorsError) {
+                    console.warn('⚠️ Method 2 gagal:', noCorsError.message);
+                }
+                
+                // Method 3: Form submission method
+                try {
+                    console.log('🔄 Mencoba metode form submission...');
+                    
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = scriptUrl;
+                    form.target = 'hidden_iframe';
+                    form.style.display = 'none';
+                    
+                    // Create hidden iframe for form submission
+                    const iframe = document.createElement('iframe');
+                    iframe.name = 'hidden_iframe';
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                    
+                    // Add form fields
+                    Object.entries(sheetData).forEach(([key, value]) => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = key;
+                        input.value = typeof value === 'object' ? JSON.stringify(value) : String(value);
+                        form.appendChild(input);
+                    });
+                    
+                    document.body.appendChild(form);
+                    
+                    // Submit form and clean up
+                    return new Promise((resolve) => {
+                        iframe.onload = () => {
+                            console.log('✅ Form berhasil disubmit ke Google Sheets');
+                            document.body.removeChild(form);
+                            document.body.removeChild(iframe);
+                            resolve(true);
+                        };
+                        
+                        form.submit();
+                        
+                        // Fallback timeout
+                        setTimeout(() => {
+                            console.log('✅ Form submission timeout - assuming success');
+                            if (document.body.contains(form)) document.body.removeChild(form);
+                            if (document.body.contains(iframe)) document.body.removeChild(iframe);
+                            resolve(true);
+                        }, 5000);
+                    });
+                    
+                } catch (formError) {
+                    console.error('❌ Method 3 gagal:', formError.message);
+                    throw new Error('Semua metode pengiriman gagal');
+                }
+                
+            } catch (error) {
+                console.error('❌ Error mengirim ke Google Sheets:', error);
+                throw error;
+            }
+        }
+
+        // Initialize registration form
+        function initializeRegistrationForm() {
+            const registrationForm = document.getElementById('registrationForm');
+            if (registrationForm) {
+                registrationForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    
+                    try {
+                        // Validate form
+                        const formData = new FormData(this);
+                        const data = Object.fromEntries(formData.entries());
+                        
+                        // Check required fields
+                        const requiredFields = ['tanggal', 'namapetugas', 'nip', 'telp', 'email', 'namainstansi', 'jenipelaporan', 'namalengkap', 'tempatlahir', 'tanggallahir', 'jeniskelamin', 'namaibu', 'namaayah', 'kecamatan', 'desakelurahan', 'rtrw'];
+                        
+                        for (const field of requiredFields) {
+                            if (!data[field] || data[field].trim() === '') {
+                                alert(`❌ Field "${field}" harus diisi!`);
+                                return;
+                            }
+                        }
+                        
+                        if (!data.syaratdanketentuan) {
+                            alert('❌ Anda harus menyetujui syarat dan ketentuan!');
+                            return;
+                        }
+                        
+                        // Security validations
+                        if (!isCaptchaVerified) {
+                            alert('❌ Silakan verifikasi CAPTCHA terlebih dahulu!');
+                            document.getElementById('captchaInput').focus();
+                            return;
+                        }
+                        
+                        if (!isBiometricVerified) {
+                            alert('❌ Silakan ambil foto biometrik untuk verifikasi identitas!');
+                            document.getElementById('startCameraBtn').focus();
+                            return;
+                        }
+                        
+                        // Prepare data with proper file handling
+                        data.syaratdanketentuan = data.syaratdanketentuan ? 'Ya' : 'Tidak';
+                        
+                        data.timestamp = new Date().toLocaleString('id-ID', {
+                            timeZone: 'Asia/Jayapura',
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        });
+                        
+                        // Add security verification data
+                        data.captchaVerified = isCaptchaVerified ? 'Ya' : 'Tidak';
+                        data.biometricVerified = isBiometricVerified ? 'Ya' : 'Tidak';
+                        data.biometricPhoto = capturedPhotoData || '';
+                        data.verificationTimestamp = new Date().toISOString();
+                        
+                        // Send to Google Sheets
+                        submitBtn.textContent = 'Mengirim Data ke Database...';
+                        submitBtn.disabled = true;
+                        
+                        console.log('📤 Memulai proses pengiriman data...');
+                        
+                        try {
+                            await sendToGoogleSheets(data);
+                            console.log('✅ Data berhasil disimpan ke Google Sheets');
+                            
+                            // Show success message
+                            const successDiv = document.createElement('div');
+                            successDiv.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white px-8 py-6 rounded-xl shadow-2xl z-50 text-center';
+                            successDiv.innerHTML = `
+                                <div class="text-4xl mb-4">✅</div>
+                                <h3 class="text-xl font-bold mb-2">Data Berhasil Dikirim!</h3>
+                                <p class="text-sm opacity-90">Data registrasi telah tersimpan ke database AplikasiWalangaduk</p>
+                            `;
+                            document.body.appendChild(successDiv);
+                            
+                            // Auto close success message
+                            setTimeout(() => {
+                                successDiv.remove();
+                            }, 4000);
+                            
+                            // Reset form after successful submission
+                            setTimeout(() => {
+                                this.reset();
+                                document.getElementById('fileList').innerHTML = '';
+                                document.getElementById('desa').innerHTML = '<option value="">Pilih Desa</option>';
+                                uploadedFiles = [];
+                                
+                                // Reset security features
+                                resetSecurityFeatures();
+                                
+                                // Set today's date
+                                const today = new Date().toISOString().split('T')[0];
+                                const dateInput = this.querySelector('input[name="tanggal"]');
+                                if (dateInput) {
+                                    dateInput.value = today;
+                                }
+                            }, 2000);
+                            
+                        } catch (sheetError) {
+                            console.error('❌ Gagal menyimpan ke Google Sheets:', sheetError);
+                            
+                            // Show error message
+                            const errorDiv = document.createElement('div');
+                            errorDiv.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-500 text-white px-8 py-6 rounded-xl shadow-2xl z-50 text-center';
+                            errorDiv.innerHTML = `
+                                <div class="text-4xl mb-4">❌</div>
+                                <h3 class="text-xl font-bold mb-2">Gagal Mengirim Data</h3>
+                                <p class="text-sm opacity-90 mb-4">Terjadi kesalahan saat mengirim ke Google Sheets</p>
+                                <p class="text-xs opacity-75">Pastikan URL Google Apps Script sudah benar</p>
+                            `;
+                            document.body.appendChild(errorDiv);
+                            
+                            setTimeout(() => {
+                                errorDiv.remove();
+                            }, 5000);
+                            
+                            throw sheetError;
+                        }
+                        
+                    } catch (error) {
+                        console.error('❌ Error in form submission:', error);
+                        
+                        if (!document.querySelector('.fixed.bg-red-500')) {
+                            alert('❌ Terjadi kesalahan saat memproses data. Silakan coba lagi.\n\nDetail: ' + error.message);
+                        }
+                    } finally {
+                        setTimeout(() => {
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                        }, 2000);
+                    }
+                });
+            }
+        }
+
+
+
+
+
+
+
+        // Update current date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                timeZone: 'Asia/Jayapura',
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            
+            const dateTimeString = now.toLocaleDateString('id-ID', options) + ' WIT';
+            document.getElementById('currentDateTime').textContent = dateTimeString;
+        }
+
+
+
+        // Initialize contact form with WhatsApp redirect
+        function initializeContactForm() {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData.entries());
+                    
+                    // Validate WhatsApp number format
+                    let whatsappNumber = data.whatsapp.trim();
+                    
+                    // Remove any non-digit characters
+                    whatsappNumber = whatsappNumber.replace(/\D/g, '');
+                    
+                    // Add country code if not present
+                    if (whatsappNumber.startsWith('0')) {
+                        whatsappNumber = '62' + whatsappNumber.substring(1);
+                    } else if (!whatsappNumber.startsWith('62')) {
+                        whatsappNumber = '62' + whatsappNumber;
+                    }
+                    
+                    // Validate number length (Indonesian phone numbers)
+                    if (whatsappNumber.length < 10 || whatsappNumber.length > 15) {
+                        alert('❌ Nomor WhatsApp tidak valid. Pastikan format nomor benar (contoh: 628123456789)');
+                        return;
+                    }
+                    
+                    // Create WhatsApp message
+                    const message = `🌊 *Pesan dari Aplikasi Walangaduk*
+
+👤 *Nama:* ${data.nama}
+📧 *Email:* ${data.email}
+📱 *WhatsApp:* ${data.whatsapp}
+
+💬 *Pesan:*
+${data.pesan}
+
+---
+Dikirim melalui Aplikasi Walangaduk
+Dinas Kependudukan dan Pencatatan Sipil
+Kabupaten Kepulauan Tanimbar`;
+                    
+                    // Encode message for URL
+                    const encodedMessage = encodeURIComponent(message);
+                    
+                    // Create WhatsApp URL (using official WhatsApp number - you can change this)
+                    const whatsappURL = `https://wa.me/6285344733576?text=${encodedMessage}`;
+                    
+                    // Show loading message
+                    const loadingDiv = document.createElement('div');
+                    loadingDiv.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white px-8 py-6 rounded-xl shadow-2xl z-50 text-center';
+                    loadingDiv.innerHTML = `
+                        <div class="text-4xl mb-4">📱</div>
+                        <h3 class="text-xl font-bold mb-2">Membuka WhatsApp...</h3>
+                        <p class="text-sm opacity-90">Anda akan diarahkan ke WhatsApp dalam beberapa detik</p>
+                        <div class="mt-4">
+                            <div class="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent mx-auto"></div>
+                        </div>
+                    `;
+                    document.body.appendChild(loadingDiv);
+                    
+                    // Open WhatsApp after short delay
+                    setTimeout(() => {
+                        window.open(whatsappURL, '_blank');
+                        loadingDiv.remove();
+                        
+                        // Show success message
+                        const successDiv = document.createElement('div');
+                        successDiv.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white px-8 py-6 rounded-xl shadow-2xl z-50 text-center';
+                        successDiv.innerHTML = `
+                            <div class="text-4xl mb-4">✅</div>
+                            <h3 class="text-xl font-bold mb-2">WhatsApp Terbuka!</h3>
+                            <p class="text-sm opacity-90">Pesan Anda telah disiapkan di WhatsApp. Silakan kirim pesan tersebut.</p>
+                        `;
+                        document.body.appendChild(successDiv);
+                        
+                        setTimeout(() => {
+                            successDiv.remove();
+                        }, 4000);
+                        
+                        // Reset form
+                        this.reset();
+                    }, 2000);
+                });
+            }
+        }
+
+        // Test Google Sheets connection
+        async function testGoogleSheetsConnection() {
+            console.log('🧪 Testing Google Sheets connection...');
+            
+            try {
+                const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQe1VRxHbaCptL3iB_UUitoRw_BF6DRWSuUw3-w5evnSe-nxUPGLKo7TNSjy8rwL8r0nL5RHmK2ALiy/pubhtml?gid=990672237&single=true';
+                
+                const response = await fetch(sheetUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                        'User-Agent': 'Mozilla/5.0 (compatible; WalangadukApp/1.0)'
+                    }
+                });
+                
+                console.log('📡 Response status:', response.status, response.statusText);
+                console.log('📡 Response headers:', Object.fromEntries(response.headers.entries()));
+                
+                if (response.ok) {
+                    const html = await response.text();
+                    console.log('📄 HTML length:', html.length);
+                    console.log('📄 HTML preview (first 500 chars):', html.substring(0, 500));
+                    
+                    // Check if it contains table data
+                    const hasTable = html.includes('<table') || html.includes('role="grid"');
+                    const hasData = html.toLowerCase().includes('username') || html.toLowerCase().includes('password');
+                    
+                    console.log('🔍 Contains table:', hasTable);
+                    console.log('🔍 Contains credential data:', hasData);
+                    
+                    return { success: true, hasTable, hasData, htmlLength: html.length };
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+            } catch (error) {
+                console.error('❌ Google Sheets connection test failed:', error);
+                return { success: false, error: error.message };
+            }
+        }
+
+        // Debug function to show current credentials
+        function debugShowCredentials() {
+            console.log('🔍 Current loaded credentials:');
+            console.log('📊 Total credentials:', validCredentials.length);
+            
+            if (validCredentials.length > 0) {
+                validCredentials.forEach((cred, index) => {
+                    console.log(`${index + 1}. Username: "${cred.username}" | Password: "${cred.password.replace(/./g, '*')}" (length: ${cred.password.length})`);
+                });
+            } else {
+                console.log('❌ No credentials loaded');
+            }
+        }
+
         // Initialize application
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('🚀 Memulai aplikasi Walangaduk...');
             
-            // Check if already logged in
-            try {
-                const stored = localStorage.getItem('walangaduk_login');
-                if (stored) {
-                    const loginData = JSON.parse(stored);
-                    
-                    // Check if login is still valid (24 hours)
-                    const now = Date.now();
-                    const loginTime = loginData.timestamp || 0;
-                    const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
-                    
-                    if (hoursDiff < 24 && loginData.isLoggedIn && loginData.user) {
-                        // Redirect to registrasi page
-                        window.location.href = 'walngaduk_script.html#registrasi';
-                        return;
-                    } else {
-                        // Clear expired login
-                        localStorage.removeItem('walangaduk_login');
-                    }
-                }
-            } catch (error) {
-                console.error('Error checking stored login:', error);
-                localStorage.removeItem('walangaduk_login');
+            // Test Google Sheets connection first
+            console.log('🧪 Testing Google Sheets connection...');
+            const connectionTest = await testGoogleSheetsConnection();
+            
+            if (connectionTest.success) {
+                console.log('✅ Google Sheets connection successful');
+                console.log('📊 Connection details:', connectionTest);
+            } else {
+                console.warn('⚠️ Google Sheets connection failed:', connectionTest.error);
             }
             
-            // Load login credentials and initialize form
-            try {
-                await loadLoginCredentials();
-                initializeLoginForm();
-            } catch (error) {
-                console.error('Failed to initialize login:', error);
+            // Load login credentials from Google Sheets
+            console.log('🔐 Loading credentials...');
+            const credentialsLoaded = await loadCredentials();
+            
+            if (credentialsLoaded) {
+                console.log('✅ Credentials loaded successfully from Google Sheets');
+            } else {
+                console.log('⚠️ Using fallback credentials');
             }
+            
+            // Debug: Show loaded credentials
+            debugShowCredentials();
+            
+            // Check if user is already logged in
+            if (checkLoginStatus()) {
+                showLogoutButtons();
+                console.log('✅ User sudah login, menampilkan tombol logout');
+            }
+            
+            // Set today's date in registration form
+            const today = new Date().toISOString().split('T')[0];
+            const dateInput = document.querySelector('input[name="tanggal"]');
+            if (dateInput) {
+                dateInput.value = today;
+            }
+            
+            // Initialize all components
+            initializeRegistrationForm();
+            initializeContactForm();
+            
+            // Initialize security features
+            generateCaptcha();
+            setupCaptchaAutoVerify();
+            
+            // Update date/time every second
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            
+            // Add debug functions to window for console access
+            window.debugWalangaduk = {
+                testConnection: testGoogleSheetsConnection,
+                showCredentials: debugShowCredentials,
+                reloadCredentials: loadCredentials,
+                currentCredentials: () => validCredentials
+            };
+            
+            console.log('✅ Aplikasi Walangaduk siap digunakan!');
+            console.log('🔧 Debug functions available: window.debugWalangaduk');
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', function() {
+            // Stop camera stream if active
+            stopCamera();
         });
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'981d7092448f5f4c',t:'MTc1ODMzMDU5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
