@@ -1956,7 +1956,7 @@
                 
                 try {
                     // First attempt: POST with FormData
-                    response = await fetch('https://script.google.com/macros/s/AKfycbwbYilhIfF7MhzwJ5eKpgsh2WhyY2sJ9WBouGaw-Ikt/exec', {
+                    response = await fetch('https://script.google.com/macros/s/AKfycbzXHmFFsuoKhRFWv0aYBDc47QyKstUDxxHHpvbfZDNG7EQj7EDeis-LGWpMqz7tH7-5Og/exec', {
                         method: 'POST',
                         body: formDataToSend
                     });
@@ -1972,7 +1972,7 @@
                 // Method 2: If FormData fails, try JSON approach
                 if (!success) {
                     try {
-                        response = await fetch('https://script.google.com/macros/s/AKfycbwbYilhIfF7MhzwJ5eKpgsh2WhyY2sJ9WBouGaw-Ikt/exec', {
+                        response = await fetch('https://script.google.com/macros/s/AKfycbzXHmFFsuoKhRFWv0aYBDc47QyKstUDxxHHpvbfZDNG7EQj7EDeis-LGWpMqz7tH7-5Og/exec', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -1997,7 +1997,7 @@
                             params.append(key, registrationData[key]);
                         });
                         
-                        response = await fetch(`https://script.google.com/macros/s/AKfycbwbYilhIfF7MhzwJ5eKpgsh2WhyY2sJ9WBouGaw-Ikt/exec?${params.toString()}`, {
+                        response = await fetch(`https://script.google.com/macros/s/AKfycbzXHmFFsuoKhRFWv0aYBDc47QyKstUDxxHHpvbfZDNG7EQj7EDeis-LGWpMqz7tH7-5Og/exec?${params.toString()}`, {
                             method: 'GET'
                         });
                         
@@ -2086,9 +2086,9 @@
                 console.log('🔍 Debug Info:');
                 console.log('📋 Data yang gagal dikirim:', registrationData);
                 console.log('🔗 URL endpoint yang dicoba:');
-                console.log('   - POST FormData: https://script.google.com/macros/s/AKfycbwbYilhIfF7MhzwJ5eKpgsh2WhyY2sJ9WBouGaw-Ikt/exec');
-                console.log('   - POST JSON: https://script.google.com/macros/s/AKfycbwbYilhIfF7MhzwJ5eKpgsh2WhyY2sJ9WBouGaw-Ikt/exec');
-                console.log('   - GET Params: https://script.google.com/macros/s/AKfycbwbYilhIfF7MhzwJ5eKpgsh2WhyY2sJ9WBouGaw-Ikt/exec');
+                console.log('   - POST FormData: https://script.google.com/macros/s/AKfycbzXHmFFsuoKhRFWv0aYBDc47QyKstUDxxHHpvbfZDNG7EQj7EDeis-LGWpMqz7tH7-5Og/exec');
+                console.log('   - POST JSON: https://script.google.com/macros/s/AKfycbzXHmFFsuoKhRFWv0aYBDc47QyKstUDxxHHpvbfZDNG7EQj7EDeis-LGWpMqz7tH7-5Og/exec');
+                console.log('   - GET Params: https://script.google.com/macros/s/AKfycbzXHmFFsuoKhRFWv0aYBDc47QyKstUDxxHHpvbfZDNG7EQj7EDeis-LGWpMqz7tH7-5Og/exec');
                 console.log('💡 Saran: Pastikan Google Apps Script sudah di-deploy sebagai web app dengan akses "Anyone"');
             } finally {
                 // Restore button
@@ -2223,5 +2223,5 @@
             stopCamera();
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a27aa1116a445e',t:'MTc1OTcyNTYwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a29b9183276034',t:'MTc1OTcyNjk1OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
