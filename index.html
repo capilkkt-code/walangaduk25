@@ -1882,7 +1882,7 @@
             statusDiv.classList.remove('hidden');
         }
 
-        // Form submission
+        // Form submission to Google Sheets
         document.getElementById('registrationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -1907,47 +1907,106 @@
             try {
                 // Collect form data
                 const formData = new FormData(e.target);
-                const data = Object.fromEntries(formData.entries());
                 
-                // Add uploaded files
-                data.uploadedFiles = uploadedFiles;
+                // Prepare data according to Google Sheets columns
+                const registrationData = {
+                    timestamp: new Date().toLocaleString('id-ID', {
+                        timeZone: 'Asia/Jayapura',
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    }),
+                    tanggal: formData.get('tanggal') || '',
+                    jenipelaporan: formData.get('jenipelaporan') || '',
+                    namapetugas: formData.get('namapetugas') || '',
+                    nip: formData.get('nip') || '',
+                    namainstansi: formData.get('namainstansi') || '',
+                    telp: formData.get('telp') || '',
+                    email: formData.get('email') || '',
+                    namalengkap: formData.get('namalengkap') || '',
+                    tempatlahir: formData.get('tempatlahir') || '',
+                    tanggallahir: formData.get('tanggallahir') || '',
+                    jeniskelamin: formData.get('jeniskelamin') || '',
+                    namaibu: formData.get('namaibu') || '',
+                    namaayah: formData.get('namaayah') || '',
+                    kecamatan: formData.get('kecamatan') || '',
+                    desakelurahan: formData.get('desakelurahan') || '',
+                    rtrw: formData.get('rtrw') || '',
+                    syaratdanketentuan: formData.get('syaratdanketentuan') ? 'Disetujui' : 'Tidak Disetujui',
+                    unggahberkas: uploadedFiles.length > 0 ? `${uploadedFiles.length} file(s) uploaded: ${uploadedFiles.map(f => f.name).join(', ')}` : 'Tidak ada file'
+                };
                 
-                // Add biometric data
-                data.biometricPhoto = capturedPhotoData;
+                console.log('📤 Mengirim data registrasi:', registrationData);
                 
-                // Add timestamp
-                data.timestamp = new Date().toISOString();
+                // Send data to Google Apps Script
+                const response = await fetch('https://script.google.com/macros/s/AKfycbwbYilhIfF7MhzwJ5eKpgsh2WhyY2sJ9WBouGaw-Ikt/dev', {
+                    method: 'POST',
+                    mode: 'no-cors', // Required for Google Apps Script
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(registrationData)
+                });
                 
-                // Simulate API call
-                await new Promise(resolve => setTimeout(resolve, 2000));
+                // Note: With no-cors mode, we can't read the response
+                // But if no error is thrown, we assume success
                 
                 // Show success message
-                showMessage('🎉 Data registrasi berhasil dikirim! Terima kasih telah menggunakan layanan Walangaduk.', 'success', 8000);
+                showMessage('🎉 Data registrasi berhasil dikirim ke database! Terima kasih telah menggunakan layanan Walangaduk.', 'success', 8000);
                 
-                // Reset form
-                e.target.reset();
-                uploadedFiles = [];
-                document.getElementById('fileList').innerHTML = '';
+                // Log success
+                console.log('✅ Data berhasil dikirim ke Google Sheets');
                 
-                // Reset biometric
-                const capturedPhoto = document.getElementById('capturedPhoto');
-                const photoPlaceholder = document.getElementById('photoPlaceholder');
-                const biometricStatus = document.getElementById('biometricStatus');
-                
-                capturedPhoto.classList.add('hidden');
-                photoPlaceholder.classList.remove('hidden');
-                biometricStatus.classList.add('hidden');
-                capturedPhotoData = null;
-                isBiometricVerified = false;
-                
-                // Reset CAPTCHA
-                generateCaptcha();
-                
-                console.log('✅ Form registrasi berhasil dikirim:', data);
+                // Reset form after successful submission
+                setTimeout(() => {
+                    // Reset form
+                    e.target.reset();
+                    uploadedFiles = [];
+                    document.getElementById('fileList').innerHTML = '';
+                    
+                    // Reset desa dropdown
+                    document.getElementById('desa').innerHTML = '<option value="">Pilih Desa</option>';
+                    
+                    // Reset biometric
+                    const capturedPhoto = document.getElementById('capturedPhoto');
+                    const photoPlaceholder = document.getElementById('photoPlaceholder');
+                    const biometricStatus = document.getElementById('biometricStatus');
+                    
+                    capturedPhoto.classList.add('hidden');
+                    photoPlaceholder.classList.remove('hidden');
+                    biometricStatus.classList.add('hidden');
+                    capturedPhotoData = null;
+                    isBiometricVerified = false;
+                    
+                    // Reset camera UI
+                    resetCameraUI();
+                    
+                    // Reset CAPTCHA
+                    generateCaptcha();
+                    
+                    showMessage('✨ Form telah direset dan siap untuk registrasi baru.', 'info', 3000);
+                }, 1500);
                 
             } catch (error) {
-                console.error('❌ Error mengirim form:', error);
-                showMessage('❌ Terjadi kesalahan saat mengirim data. Silakan coba lagi.', 'error', 5000);
+                console.error('❌ Error mengirim data ke Google Sheets:', error);
+                
+                let errorMessage = '❌ Terjadi kesalahan saat mengirim data. ';
+                
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    errorMessage += 'Periksa koneksi internet Anda dan coba lagi.';
+                } else if (error.message.includes('CORS')) {
+                    errorMessage += 'Masalah keamanan browser. Data mungkin tetap terkirim, silakan periksa database.';
+                } else {
+                    errorMessage += 'Silakan coba lagi dalam beberapa saat.';
+                }
+                
+                showMessage(errorMessage, 'error', 8000);
+                
+                // Show additional info for debugging
+                console.log('📋 Data yang gagal dikirim:', registrationData);
             } finally {
                 // Restore button
                 submitBtn.innerHTML = originalText;
@@ -2081,5 +2140,5 @@
             stopCamera();
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a162b2046ece3d',t:'MTc1OTcxNDE0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a18da1b1dcce3d',t:'MTc1OTcxNTkwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
